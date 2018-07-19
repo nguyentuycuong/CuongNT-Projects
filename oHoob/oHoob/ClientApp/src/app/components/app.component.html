@@ -1,0 +1,67 @@
+
+  <mat-sidenav-container class="sidenav-container">
+    <ngx-toasta></ngx-toasta>
+    <mat-sidenav #drawer
+                 class="sidenav"
+                 fixedInViewport="true"
+                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
+                 [opened]="!(isHandset$ | async)">
+      <mat-toolbar color="primary">Menu</mat-toolbar>
+      <mat-nav-list *ngIf="isUserLoggedIn">
+        <a class="mat-list-item active" mat-list-item="" routerLink="" routerlinkactive="active" href="/">
+          <div class="mat-list-item-content">
+            <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
+            <div class="mat-list-text"></div>
+            <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>Home
+          </div>
+        </a>
+        <a class="mat-list-item active" mat-list-item="" routerLink="/customers" routerlinkactive="active">
+          <div class="mat-list-item-content">
+            <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
+            <div class="mat-list-text"></div>
+            <mat-icon _ngcontent-c0="" class="mat-icon material-icons" role="img" aria-hidden="true">contacts</mat-icon>Customers
+          </div>
+        </a>
+        <a class="mat-list-item active" mat-list-item="" routerLink="/products" routerlinkactive="active">
+          <div class="mat-list-item-content">
+            <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div> 
+            <div class="mat-list-text"></div>
+            <mat-icon _ngcontent-c0="" class="mat-icon material-icons" role="img" aria-hidden="true">shopping_cart</mat-icon>Products
+          </div>
+        </a>
+        <a class="mat-list-item active" mat-list-item="" routerLink="/about" routerlinkactive="active">
+          <div class="mat-list-item-content">
+            <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
+            <div class="mat-list-text"></div>
+            <mat-icon _ngcontent-c0="" class="mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>About
+          </div>
+        </a>
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary" style="z-index:0">
+        <button type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>
+
+          {{'app.AppTitle' | translate}}
+
+        </span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <div *ngIf="shouldShowLoginModal" class="modal fade" bsModal #loginModal="bs-modal" (onShown)="onLoginModalShown()" (onHidden)="onLoginModalHidden()" (onHide)="onLoginModalHide()"
+       [config]="{backdrop: 'static'}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <app-login #loginControl isModal="true"></app-login>
+    </div>
+  </div>
