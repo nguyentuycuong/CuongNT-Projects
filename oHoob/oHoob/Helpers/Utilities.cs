@@ -18,8 +18,7 @@ namespace oHoob.Helpers
     public static class Utilities
     {
         static ILoggerFactory _loggerFactory;
-
-
+        
         public static void ConfigureLogger(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
