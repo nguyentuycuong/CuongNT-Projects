@@ -16,16 +16,29 @@ import { AboutComponent } from "./components/about/about.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { LayoutComponent } from './layout/layout.component';
+import { PublicComponent } from './layout/public.component';
 
 
 const routes: Routes = [
-  { path: "", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
+  {
+    path: "", component: PublicComponent, children: [
+      { path: "", component: HomeComponent },
+      
+    ]
+  },
+
+  {
+    path: "", component: LayoutComponent, canActivate: [AuthGuard], data: { title: "Home" }, children: [
+      { path: "about", component: AboutComponent, data: { title: "About Us" } },
+      { path: "customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
+      { path: "products", component: ProductsComponent, canActivate: [AuthGuard], data: { title: "Products" } },
+      { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
+      { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
+    ]
+  },
+
   { path: "login", component: LoginComponent, data: { title: "Login" } },
-  { path: "customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
-  { path: "products", component: ProductsComponent, canActivate: [AuthGuard], data: { title: "Products" } },
-  { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
-  { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
-  { path: "about", component: AboutComponent, data: { title: "About Us" } },
   { path: "home", redirectTo: "/", pathMatch: "full" },
   { path: "**", component: NotFoundComponent, data: { title: "Page Not Found" } }
 ];

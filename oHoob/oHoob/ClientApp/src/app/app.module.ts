@@ -64,7 +64,9 @@ import { RolesManagementComponent } from "./components/controls/roles-management
 import { RoleEditorComponent } from "./components/controls/role-editor.component";
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MaterialModule } from './material.module'
+import { MaterialModule } from './material.module';
+import { LayoutComponent } from './layout/layout.component';
+import { PublicComponent } from "./layout/public.component";
 
 
 
@@ -116,7 +118,9 @@ import { MaterialModule } from './material.module'
     BootstrapDatepickerDirective,
     GroupByPipe,
     NavComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    LayoutComponent,
+    PublicComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
