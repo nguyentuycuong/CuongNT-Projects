@@ -1,9 +1,51 @@
-<div class="container">
-    <header class="pageHeader">
-        <h3><i class="fa fa-truck fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Products' | translate}}</h3>
-    </header>
 
-    <div [@fadeInOut]>
-        <span class="text-muted">-- Sample Page --</span>
+<div style="width:100%; text-align:center; padding-left:10px; padding-top:10px">
+
+  <div class="row col-sm-10" style="text-align:center; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1); margin:0px; padding-left:0px; padding-right:0px">
+    <mat-toolbar style="padding-left:0px; padding-right:0px">
+      <span style="padding-left:10px"> My Form </span>
+    </mat-toolbar>
+    <div>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input 1">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input 2">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input 3">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input 4">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput placeholder="Input 5">
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <textarea matInput placeholder="Textarea"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-10">
+        <mat-select placeholder="Select">
+          <mat-option value="option">Option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-10">
+        <input matInput [(ngModel)]="name" placeholder="What's your name?">
+      </mat-form-field>
+      <div class="col-sm-10">
+        <button mat-raised-button (click)="openDialog()">Pick one</button>
+      </div>
+
     </div>
+  </div>
 </div>
+
+
+
+
+

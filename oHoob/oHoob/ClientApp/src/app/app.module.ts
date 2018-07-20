@@ -46,7 +46,7 @@ import { AppComponent } from "./components/app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { CustomersComponent } from "./components/customers/customers.component";
-import { ProductsComponent } from "./components/products/products.component";
+import { ProductsComponent, DialogOverviewExampleDialog } from "./components/products/products.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { AboutComponent } from "./components/about/about.component";
@@ -64,8 +64,7 @@ import { RolesManagementComponent } from "./components/controls/roles-management
 import { RoleEditorComponent } from "./components/controls/role-editor.component";
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
-
+import { MaterialModule } from './material.module'
 
 
 
@@ -91,11 +90,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     ModalModule.forRoot(),
     ChartsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    MaterialModule
   ],
   declarations: [
     AppComponent,
@@ -120,7 +115,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     BootstrapSelectDirective,
     BootstrapDatepickerDirective,
     GroupByPipe,
-    NavComponent
+    NavComponent,
+    DialogOverviewExampleDialog
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
@@ -136,7 +132,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     LocalStoreManager,
     EndpointFactory
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NavComponent, DialogOverviewExampleDialog]
 })
 export class AppModule {
 }
