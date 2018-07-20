@@ -16,14 +16,14 @@
           <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>Home
         </div>
       </a>
-      <a class="mat-list-item active" mat-list-item="" routerLink="/customers" routerlinkactive="active">
+      <a class="mat-list-item active" mat-list-item="" routerLink="/app/customers" routerlinkactive="active">
         <div class="mat-list-item-content">
           <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
           <div class="mat-list-text"></div>
           <mat-icon _ngcontent-c0="" class="mat-icon material-icons" role="img" aria-hidden="true">contacts</mat-icon>Customers
         </div>
       </a>
-      <a class="mat-list-item active" mat-list-item="" routerLink="/products" routerlinkactive="active">
+      <a class="mat-list-item active" mat-list-item="" routerLink="/app/products" routerlinkactive="active">
         <div class="mat-list-item-content">
           <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
           <div class="mat-list-text"></div>
@@ -42,18 +42,44 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary" style="z-index:10">
-      <button type="button"
-              aria-label="Toggle sidenav"
-              mat-icon-button
-              (click)="drawer.toggle()"
-              *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>
+      <mat-toolbar-row>
+        <button type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
 
-        {{'app.AppTitle' | translate}}
+        <span class="example-spacer"> {{'app.AppTitle' | translate}}</span>
+        
+        <button mat-button [matMenuTriggerFor]="message">
+          <mat-icon class="example-icon">message</mat-icon>
+        </button>
+        <mat-menu #message>
+          Message here!
+        </mat-menu>
 
-      </span>
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon class="example-icon">account_circle</mat-icon>
+          {{userName}}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>            
+            <span>
+              <a routerLink="/app/settings">Profile</a>
+            </span>
+          </button>
+          <button mat-menu-item><mat-icon>settings</mat-icon>
+          <a routerLink="/app/settings"><span>Settings</span></a>
+          </button>
+          <hr />
+          <button mat-menu-item (click)="logout()"><mat-icon>lock</mat-icon><span>Logout</span></button>
+        </mat-menu>
+        
+      </mat-toolbar-row>
+
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

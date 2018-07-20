@@ -49,7 +49,6 @@ import { CustomersComponent } from "./components/customers/customers.component";
 import { ProductsComponent, DialogOverviewExampleDialog } from "./components/products/products.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { SettingsComponent } from "./components/settings/settings.component";
-import { AboutComponent } from "./components/about/about.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 
 import { BannerDemoComponent } from "./components/controls/banner-demo.component";
@@ -67,6 +66,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from "./layout/public.component";
+import { AboutComponent } from "./public/about/about.component";
 
 
 
