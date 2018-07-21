@@ -19,6 +19,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from './layout/public.component';
 import { AboutComponent } from './public/about/about.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: "app/products", component: ProductsComponent, canActivate: [AuthGuard], data: { title: "Products" } },
       { path: "app/orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
       { path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
+      { path: "app/categories", component: CategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
     ]
   },
 

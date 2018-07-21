@@ -3,7 +3,12 @@
     "Welcome": "Welcome",
     "Notifications": "Notifications",
     "New": "New",
-    "AppTitle": "Money Lover"
+    "AppTitle": "Money Lover",
+    "FieldRequired": "This field is required",
+    "AddNew": "Add New",
+    "Save": "Save",
+    "Update": "Update",
+    "Cancel":  "Cancel"
   },
   "mainMenu": {
     "Appointments": "Appointments",
@@ -178,5 +183,12 @@
       "Important": "Mark as important",
       "AddTask": "Add Task"
     }
+  },
+  "category": {
+    "Title": "Category",
+    "Name": "Name",
+    "Description": "Description",
+    "Order": "Order",
+    "Active": "Active"
   }
 }

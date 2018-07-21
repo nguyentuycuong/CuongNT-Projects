@@ -1,0 +1,65 @@
+<header class="pageHeader">
+  <h3> <mat-icon>category</mat-icon> {{'category.Title' | translate}}</h3>
+</header>
+<div class="col-sm-8">
+  <mat-form-field class="col-sm-8">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<div class="col-sm-4" style="vertical-align:bottom; padding-top:10px">
+  <button color="primary" mat-button class="mat-button mat-primary">
+    <span class="mat-button-wrapper">
+      <mat-icon class="mat-button-icon mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>{{'app.AddNew' | translate}}
+    </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
+  </button>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+    <!-- Action -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef style="text-align:center; width:10%"> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button #edit class="mat-icon-button">
+          <span class="mat-button-wrapper">
+            <mat-icon color="primary">edit</mat-icon>
+          </span>
+        </button>
+        <button mat-button #delete class="mat-icon-button">
+          <span class="mat-button-wrapper">
+            <mat-icon color="warn">delete</mat-icon>
+          </span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[7, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>

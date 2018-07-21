@@ -67,6 +67,7 @@ import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from "./layout/public.component";
 import { AboutComponent } from "./public/about/about.component";
+import { CategoryComponent } from "./components/category/category.component";
 
 
 
@@ -120,7 +121,7 @@ import { AboutComponent } from "./public/about/about.component";
     NavComponent,
     DialogOverviewExampleDialog,
     LayoutComponent,
-    PublicComponent
+    PublicComponent, CategoryComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },

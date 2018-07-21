@@ -6,7 +6,9 @@
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar color="primary">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </mat-toolbar>
     
     <mat-nav-list *ngIf="isUserLoggedIn">
       <a class="mat-list-item active" mat-list-item="" routerLink="" routerlinkactive="active" href="/">
@@ -14,6 +16,13 @@
           <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
           <div class="mat-list-text"></div>
           <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>Home
+        </div>
+      </a>
+      <a class="mat-list-item active" mat-list-item="" routerLink="/app/categories" routerlinkactive="active" href="/">
+        <div class="mat-list-item-content">
+          <div class="mat-list-item-ripple mat-ripple" mat-ripple=""></div>
+          <div class="mat-list-text"></div>
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">category</mat-icon>Category
         </div>
       </a>
       <a class="mat-list-item active" mat-list-item="" routerLink="/app/customers" routerlinkactive="active">
@@ -81,7 +90,9 @@
       </mat-toolbar-row>
 
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div style="padding-left:20px; padding-right:20px">
+      <router-outlet></router-outlet>
+    </div>    
   </mat-sidenav-content>
 </mat-sidenav-container>
 
