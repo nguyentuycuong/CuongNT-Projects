@@ -44,8 +44,7 @@ namespace oHoob.Controllers
         {
             return await GetUserByUserName(this.User.Identity.Name);
         }
-
-
+        
         [HttpGet("users/{id}", Name = GetUserByIdActionName)]
         [ProducesResponseType(200, Type = typeof(UserViewModel))]
         [ProducesResponseType(403)]
@@ -566,7 +565,10 @@ namespace oHoob.Controllers
             return null;
         }
 
-
+        /// <summary>
+        /// Demo
+        /// </summary>
+        /// <param name="errors"></param>
         private void AddErrors(IEnumerable<string> errors)
         {
             foreach (var error in errors)
