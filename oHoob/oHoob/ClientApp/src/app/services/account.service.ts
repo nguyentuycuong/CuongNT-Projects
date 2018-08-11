@@ -18,6 +18,7 @@ import { User } from '../models/user.model';
 import { Role } from '../models/role.model';
 import { Permission, PermissionNames, PermissionValues } from '../models/permission.model';
 import { UserEdit } from '../models/user-edit.model';
+import { AppEndpoint } from './app-services/app-endpoint.service';
 
 
 
@@ -37,8 +38,16 @@ export class AccountService {
 
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService,
-    private accountEndpoint: AccountEndpoint) {
-
+    private accountEndpoint: AppEndpoint) {
+    accountEndpoint._controller = "/api/account/";
+    accountEndpoint._controllerUrl = "users";
+    accountEndpoint._controllerNameUrl = "users/username";
+    accountEndpoint._currentUserUrl = "users/me";
+    accountEndpoint._currentUserPreferencesUrl = "users/me/preferences";
+    accountEndpoint._unblockUserUrl = "users/unblock";
+    accountEndpoint._rolesUrl = "roles";
+    accountEndpoint._roleByRoleNameUrl = "roles/name";
+    accountEndpoint._permissionsUrl = "permissions";
   }
 
 

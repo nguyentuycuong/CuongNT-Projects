@@ -68,6 +68,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from "./layout/public.component";
 import { AboutComponent } from "./public/about/about.component";
 import { CategoryComponent } from "./components/category/category.component";
+import { AppEndpoint } from "./services/app-services/app-endpoint.service";
 
 
 
@@ -135,7 +136,8 @@ import { CategoryComponent } from "./components/category/category.component";
     AccountService,
     AccountEndpoint,
     LocalStoreManager,
-    EndpointFactory
+    EndpointFactory,
+    AppEndpoint,
   ],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, DialogOverviewExampleDialog]

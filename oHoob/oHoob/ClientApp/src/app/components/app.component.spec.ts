@@ -31,6 +31,7 @@ import { NotificationService } from '../services/notification.service';
 import { NotificationEndpoint } from '../services/notification-endpoint.service';
 import { AccountService } from '../services/account.service';
 import { AccountEndpoint } from '../services/account-endpoint.service';
+import { AppEndpoint } from '../services/app-services/app-endpoint.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -67,7 +68,8 @@ describe('AppComponent', () => {
         AccountService,
         AccountEndpoint,
         LocalStoreManager,
-        EndpointFactory
+        EndpointFactory,
+        AppEndpoint
       ]
     }).compileComponents();
   }));

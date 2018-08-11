@@ -41,10 +41,14 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\layout\public.component.ts" />
+    <None Remove="ClientApp\src\app\models\category.model.ts" />
+    <None Remove="ClientApp\src\app\services\app-services\category.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\layout\public.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\category.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\app-services\category.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

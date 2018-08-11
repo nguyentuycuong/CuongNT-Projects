@@ -8,30 +8,32 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { EndpointFactory } from './endpoint-factory.service';
-import { ConfigurationService } from './configuration.service';
+import { EndpointFactory } from '../endpoint-factory.service';
+import { ConfigurationService } from '../configuration.service';
 
 
 @Injectable()
-export class AccountEndpoint extends EndpointFactory {
+export class AppEndpoint extends EndpointFactory {
 
-  public _usersUrl: string ;
-  public _userByUserNameUrl: string ;
+  public _controller;
+  public _controllerUrl: string;
+  public _controllerNameUrl: string;
   public _currentUserUrl: string;
   public _currentUserPreferencesUrl;
-  public _unblockUserUrl: string ;
+  public _unblockUserUrl: string;
   public _rolesUrl: string;
   public _roleByRoleNameUrl: string;
   public _permissionsUrl: string;
 
-  get usersUrl() { return this.configurations.baseUrl + this._usersUrl; }
-  get userByUserNameUrl() { return this.configurations.baseUrl + this._userByUserNameUrl; }
-  get currentUserUrl() { return this.configurations.baseUrl + this._currentUserUrl; }
-  get currentUserPreferencesUrl() { return this.configurations.baseUrl + this._currentUserPreferencesUrl; }
-  get unblockUserUrl() { return this.configurations.baseUrl + this._unblockUserUrl; }
-  get rolesUrl() { return this.configurations.baseUrl + this._rolesUrl; }
-  get roleByRoleNameUrl() { return this.configurations.baseUrl + this._roleByRoleNameUrl; }
-  get permissionsUrl() { return this.configurations.baseUrl + this._permissionsUrl; }
+  get controllerUrl() { return this.configurations.baseUrl + this._controller + this._controllerUrl; }
+  get controllerNameUrl() { return this.configurations.baseUrl + this._controller + this._controllerNameUrl; }
+
+  get currentUserUrl() { return this.configurations.baseUrl + this._controller + this._currentUserUrl; }
+  get currentUserPreferencesUrl() { return this.configurations.baseUrl + this._controller + this._currentUserPreferencesUrl; }
+  get unblockUserUrl() { return this.configurations.baseUrl + this._controller + this._unblockUserUrl; }
+  get rolesUrl() { return this.configurations.baseUrl + this._controller + this._rolesUrl; }
+  get roleByRoleNameUrl() { return this.configurations.baseUrl + this._controller + this._roleByRoleNameUrl; }
+  get permissionsUrl() { return this.configurations.baseUrl + this._controller + this._permissionsUrl; }
 
 
 
@@ -43,28 +45,28 @@ export class AccountEndpoint extends EndpointFactory {
 
 
 
-  getUserEndpoint<T>(userId?: string): Observable<T> {
-    let endpointUrl = userId ? `${this.usersUrl}/${userId}` : this.currentUserUrl;
+  getUserEndpoint<T>(itemId?: string): Observable<T> {
+    let endpointUrl = itemId ? `${this.controllerUrl}/${itemId}` : this.currentUserUrl;
 
     return this.http.get<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getUserEndpoint(userId));
+        return this.handleError(error, () => this.getUserEndpoint(itemId));
       }));
   }
 
 
-  getUserByUserNameEndpoint<T>(userName: string): Observable<T> {
-    let endpointUrl = `${this.userByUserNameUrl}/${userName}`;
+  getUserByUserNameEndpoint<T>(name: string): Observable<T> {
+    let endpointUrl = `${this.controllerNameUrl}/${name}`;
 
     return this.http.get<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getUserByUserNameEndpoint(userName));
+        return this.handleError(error, () => this.getUserByUserNameEndpoint(name));
       }));
   }
 
 
   getUsersEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
-    let endpointUrl = page && pageSize ? `${this.usersUrl}/${page}/${pageSize}` : this.usersUrl;
+    let endpointUrl = page && pageSize ? `${this.controllerUrl}/${page}/${pageSize}` : this.controllerUrl;
 
     return this.http.get<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
@@ -75,41 +77,41 @@ export class AccountEndpoint extends EndpointFactory {
 
   getNewUserEndpoint<T>(userObject: any): Observable<T> {
 
-    return this.http.post<T>(this.usersUrl, JSON.stringify(userObject), this.getRequestHeaders()).pipe<T>(
+    return this.http.post<T>(this.controllerUrl, JSON.stringify(userObject), this.getRequestHeaders()).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getNewUserEndpoint(userObject));
       }));
   }
 
-  getUpdateUserEndpoint<T>(userObject: any, userId?: string): Observable<T> {
-    let endpointUrl = userId ? `${this.usersUrl}/${userId}` : this.currentUserUrl;
+  getUpdateUserEndpoint<T>(itemObject: any, itemId?: string): Observable<T> {
+    let endpointUrl = itemId ? `${this.controllerUrl}/${itemId}` : this.currentUserUrl;
 
-    return this.http.put<T>(endpointUrl, JSON.stringify(userObject), this.getRequestHeaders()).pipe<T>(
+    return this.http.put<T>(endpointUrl, JSON.stringify(itemObject), this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getUpdateUserEndpoint(userObject, userId));
+        return this.handleError(error, () => this.getUpdateUserEndpoint(itemObject, itemId));
       }));
   }
 
   getPatchUpdateUserEndpoint<T>(patch: {}, userId?: string): Observable<T>
-  getPatchUpdateUserEndpoint<T>(value: any, op: string, path: string, from?: any, userId?: string): Observable<T>
-  getPatchUpdateUserEndpoint<T>(valueOrPatch: any, opOrUserId?: string, path?: string, from?: any, userId?: string): Observable<T> {
+  getPatchUpdateUserEndpoint<T>(value: any, op: string, path: string, from?: any, itemId?: string): Observable<T>
+  getPatchUpdateUserEndpoint<T>(valueOrPatch: any, opOrUserId?: string, path?: string, from?: any, itemId?: string): Observable<T> {
     let endpointUrl: string;
     let patchDocument: {};
 
     if (path) {
-      endpointUrl = userId ? `${this.usersUrl}/${userId}` : this.currentUserUrl;
+      endpointUrl = itemId ? `${this.controllerUrl}/${itemId}` : this.currentUserUrl;
       patchDocument = from ?
         [{ "value": valueOrPatch, "path": path, "op": opOrUserId, "from": from }] :
         [{ "value": valueOrPatch, "path": path, "op": opOrUserId }];
     }
     else {
-      endpointUrl = opOrUserId ? `${this.usersUrl}/${opOrUserId}` : this.currentUserUrl;
+      endpointUrl = opOrUserId ? `${this.controllerUrl}/${opOrUserId}` : this.currentUserUrl;
       patchDocument = valueOrPatch;
     }
 
     return this.http.patch<T>(endpointUrl, JSON.stringify(patchDocument), this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getPatchUpdateUserEndpoint(valueOrPatch, opOrUserId, path, from, userId));
+        return this.handleError(error, () => this.getPatchUpdateUserEndpoint(valueOrPatch, opOrUserId, path, from, itemId));
       }));
   }
 
@@ -129,21 +131,21 @@ export class AccountEndpoint extends EndpointFactory {
       }));
   }
 
-  getUnblockUserEndpoint<T>(userId: string): Observable<T> {
-    let endpointUrl = `${this.unblockUserUrl}/${userId}`;
+  getUnblockUserEndpoint<T>(itemId: string): Observable<T> {
+    let endpointUrl = `${this.unblockUserUrl}/${itemId}`;
 
     return this.http.put<T>(endpointUrl, null, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getUnblockUserEndpoint(userId));
+        return this.handleError(error, () => this.getUnblockUserEndpoint(itemId));
       }));
   }
 
-  getDeleteUserEndpoint<T>(userId: string): Observable<T> {
-    let endpointUrl = `${this.usersUrl}/${userId}`;
+  getDeleteUserEndpoint<T>(itemId: string): Observable<T> {
+    let endpointUrl = `${this.controllerUrl}/${itemId}`;
 
     return this.http.delete<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getDeleteUserEndpoint(userId));
+        return this.handleError(error, () => this.getDeleteUserEndpoint(itemId));
       }));
   }
 
