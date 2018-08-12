@@ -1,27 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../services/animations';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
+//import { CategoryService } from '../../services/app-services/category.service';
+import { AccountService } from '../../services/account.service';
+import { CategoryService } from '../../services/app-services/category.service';
+import { Category } from '../../models/category.model';
 
 export interface PeriodicElement {
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
- 
-}
+  id: number;
+  description: number;
+  order: string;
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+}
 
 @Component({
   selector: 'app-category',
@@ -29,22 +20,64 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./category.component.css'],
   animations: [fadeInOut],
 })
-    
+
 export class CategoryComponent implements OnInit {
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'action'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  //data: Category[] = [];
+
+  displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
+  dataSource: MatTableDataSource<Category>;
+
+  loadingIndicator: boolean;
+
+
+
+  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar) {
+    //this.categoryService.getItems().subscribe(result => this.suc(result));
+    // setTimeout(this.dataSource = new MatTableDataSource(this.data1), 1000)
+
+    this.dataSource = new MatTableDataSource();
+
   }
 
-  constructor() { }
+  suc(d: Category[]) {
+    this.loadingIndicator = false;
+    this.dataSource.data = d;
+    //this.dataSource = new MatTableDataSource(d);
+  }
 
   ngOnInit() {
+    this.loadData();
+
+    //this.dataSource.paginator = this.paginator;
+    //this.categoryService.getItems().subscribe(result => this.data = result);
+    //this.dataSource = new MatTableDataSource(this.data1);
+    //setTimeout(function () {
+    //  this.dataSource = new MatTableDataSource(this.data);
+    //}, 1000);
+  }
+
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue;
+  }
+
+  private refresh() {
+    // Causes the filter to refresh there by updating with recently added data.
+    this.applyFilter(this.dataSource.filter);
+  }
+
+  private loadData() {
+
+    this.loadingIndicator = true;
+
+    this.categoryService.getItems().subscribe(result => this.suc(result));
   }
 
 }

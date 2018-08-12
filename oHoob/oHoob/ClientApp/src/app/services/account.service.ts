@@ -38,10 +38,10 @@ export class AccountService {
 
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService,
-    private accountEndpoint: AppEndpoint) {
+    private accountEndpoint: AccountEndpoint) {
     accountEndpoint._controller = "/api/account/";
-    accountEndpoint._controllerUrl = "users";
-    accountEndpoint._controllerNameUrl = "users/username";
+    accountEndpoint._usersUrl = "users";
+    accountEndpoint._userByUserNameUrl = "users/username";
     accountEndpoint._currentUserUrl = "users/me";
     accountEndpoint._currentUserPreferencesUrl = "users/me/preferences";
     accountEndpoint._unblockUserUrl = "users/unblock";

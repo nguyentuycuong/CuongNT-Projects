@@ -15,6 +15,7 @@ import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class AccountEndpoint extends EndpointFactory {
 
+  public _controller: string;
   public _usersUrl: string ;
   public _userByUserNameUrl: string ;
   public _currentUserUrl: string;
@@ -24,14 +25,14 @@ export class AccountEndpoint extends EndpointFactory {
   public _roleByRoleNameUrl: string;
   public _permissionsUrl: string;
 
-  get usersUrl() { return this.configurations.baseUrl + this._usersUrl; }
-  get userByUserNameUrl() { return this.configurations.baseUrl + this._userByUserNameUrl; }
-  get currentUserUrl() { return this.configurations.baseUrl + this._currentUserUrl; }
-  get currentUserPreferencesUrl() { return this.configurations.baseUrl + this._currentUserPreferencesUrl; }
-  get unblockUserUrl() { return this.configurations.baseUrl + this._unblockUserUrl; }
-  get rolesUrl() { return this.configurations.baseUrl + this._rolesUrl; }
-  get roleByRoleNameUrl() { return this.configurations.baseUrl + this._roleByRoleNameUrl; }
-  get permissionsUrl() { return this.configurations.baseUrl + this._permissionsUrl; }
+  get usersUrl() { return this.configurations.baseUrl + this._controller + this._usersUrl; }
+  get userByUserNameUrl() { return this.configurations.baseUrl + this._controller + this._userByUserNameUrl; }
+  get currentUserUrl() { return this.configurations.baseUrl + this._controller + this._currentUserUrl; }
+  get currentUserPreferencesUrl() { return this.configurations.baseUrl + this._controller + this._currentUserPreferencesUrl; }
+  get unblockUserUrl() { return this.configurations.baseUrl + this._controller + this._unblockUserUrl; }
+  get rolesUrl() { return this.configurations.baseUrl + this._controller + this._rolesUrl; }
+  get roleByRoleNameUrl() { return this.configurations.baseUrl + this._controller + this._roleByRoleNameUrl; }
+  get permissionsUrl() { return this.configurations.baseUrl + this._controller + this._permissionsUrl; }
 
 
 

@@ -88,6 +88,7 @@ export class EndpointFactory {
 
   protected handleError(error, continuation: () => Observable<any>) {
 
+    
     if (error.status == 401) {
       if (this.isRefreshingLogin) {
         return this.pauseTask(continuation);
@@ -117,11 +118,13 @@ export class EndpointFactory {
     }
 
     if (error.url && error.url.toLowerCase().includes(this.loginUrl.toLowerCase())) {
+      
       this.authService.reLogin();
 
       return throwError((error.error && error.error.error_description) ? `session expired (${error.error.error_description})` : 'session expired');
     }
     else {
+      
       return throwError(error);
     }
   }
