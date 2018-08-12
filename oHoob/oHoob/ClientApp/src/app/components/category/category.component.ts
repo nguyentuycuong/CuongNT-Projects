@@ -5,6 +5,8 @@ import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar } from '@angular
 import { AccountService } from '../../services/account.service';
 import { CategoryService } from '../../services/app-services/category.service';
 import { Category } from '../../models/category.model';
+import { AlertService, MessageSeverity } from '../../services/alert.service';
+import { Utilities } from '../../services/utilities';
 
 export interface PeriodicElement {
   name: string;
@@ -25,38 +27,17 @@ export class CategoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  //data: Category[] = [];
-
   displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
   dataSource: MatTableDataSource<Category>;
-
   loadingIndicator: boolean;
 
-
-
-  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar) {
-    //this.categoryService.getItems().subscribe(result => this.suc(result));
-    // setTimeout(this.dataSource = new MatTableDataSource(this.data1), 1000)
-
+  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService) {    
     this.dataSource = new MatTableDataSource();
-
   }
-
-  suc(d: Category[]) {
-    this.loadingIndicator = false;
-    this.dataSource.data = d;
-    //this.dataSource = new MatTableDataSource(d);
-  }
+  
 
   ngOnInit() {
     this.loadData();
-
-    //this.dataSource.paginator = this.paginator;
-    //this.categoryService.getItems().subscribe(result => this.data = result);
-    //this.dataSource = new MatTableDataSource(this.data1);
-    //setTimeout(function () {
-    //  this.dataSource = new MatTableDataSource(this.data);
-    //}, 1000);
   }
 
   ngAfterViewInit() {
@@ -77,7 +58,22 @@ export class CategoryComponent implements OnInit {
 
     this.loadingIndicator = true;
 
-    this.categoryService.getItems().subscribe(result => this.suc(result));
+    this.categoryService.getItems().subscribe(result => this.onDataLoadSuccessful(result), error => this.onDataLoadFailed(error));
+  }
+
+  onDataLoadSuccessful(d: Category[]) {
+    this.loadingIndicator = false;
+    this.dataSource.data = d;
+  }
+
+  private onDataLoadFailed(error: any) {
+    
+    this.loadingIndicator = false;
+
+    this.alertService.showStickyMessage("Load Error",
+      `Unable to retrieve users from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+      MessageSeverity.error,
+      error);
   }
 
 }
