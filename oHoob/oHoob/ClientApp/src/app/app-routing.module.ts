@@ -37,11 +37,13 @@ const routes: Routes = [
       { path: "app/customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
       { path: "app/products", component: ProductsComponent, canActivate: [AuthGuard], data: { title: "Products" } },
       { path: "app/orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
-      { path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
+      //{ path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
       { path: "app/categories", component: CategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
       { path: "app/categories/new", component: CategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
     ]
   },
+
+  { path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
 
   { path: "login", component: LoginComponent, data: { title: "Login" } },
   { path: "home", redirectTo: "/", pathMatch: "full" },
