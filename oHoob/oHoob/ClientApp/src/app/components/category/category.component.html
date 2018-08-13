@@ -7,7 +7,7 @@
   </mat-form-field>
 </div>
 <div class="col-sm-4" style="vertical-align:bottom; padding-top:10px">
-  <button color="primary" mat-button class="mat-button mat-primary">
+  <button color="primary" mat-button class="mat-button mat-primary" (click)="editItemClick()">
     <span class="mat-button-wrapper">
       <mat-icon class="mat-button-icon mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>{{'app.AddNew' | translate}}
     </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
@@ -43,16 +43,12 @@
     <!-- Action -->
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef style="text-align:center; width:10%"> Action </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-button #edit class="mat-icon-button">
-          <span class="mat-button-wrapper">
-            <mat-icon color="primary">edit</mat-icon>
-          </span>
+      <mat-cell *matCellDef="let element" fxFlex="140px">
+        <button mat-icon-button matTooltip="{{'users.management.Edit' | translate}}" (click)="editItemClick(element)">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button mat-button #delete class="mat-icon-button">
-          <span class="mat-button-wrapper">
-            <mat-icon color="warn">delete</mat-icon>
-          </span>
+        <button mat-icon-button matTooltip="{{'users.management.Delete' | translate}}" (click)="confirmDelete(element)">
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

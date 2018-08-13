@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../services/animations';
-import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 //import { CategoryService } from '../../services/app-services/category.service';
 import { AccountService } from '../../services/account.service';
 import { CategoryService } from '../../services/app-services/category.service';
 import { Category } from '../../models/category.model';
 import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { Utilities } from '../../services/utilities';
+import { CategoryEditorComponent } from './category-editor.component';
 
 export interface PeriodicElement {
   name: string;
@@ -24,6 +25,7 @@ export interface PeriodicElement {
 })
 
 export class CategoryComponent implements OnInit {
+  sourceCategory: Category;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -31,8 +33,9 @@ export class CategoryComponent implements OnInit {
   dataSource: MatTableDataSource<Category>;
   loadingIndicator: boolean;
 
-  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService) {    
+  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {    
     this.dataSource = new MatTableDataSource();
+    
   }
   
 
@@ -74,6 +77,41 @@ export class CategoryComponent implements OnInit {
       `Unable to retrieve users from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
       MessageSeverity.error,
       error);
+  }
+
+  private updateItems(cat: Category) {
+    if (this.sourceCategory) {
+      
+      Object.assign(this.sourceCategory, cat);
+      this.alertService.showMessage("Success",
+        `Changes to item \"${cat.name}\" was saved successfully`,
+        MessageSeverity.success);
+      this.sourceCategory = null;
+    } else {
+      
+      this.dataSource.data.push(cat);
+      this.refresh();
+      this.alertService.showMessage("Success",
+        `Item \"${cat.name}\" was created successfully`,
+        MessageSeverity.success);
+    }
+  }
+
+  private editItemClick(cat?: Category) {
+    this.sourceCategory = cat;
+
+    let dialogRef = this.dialog.open(CategoryEditorComponent,
+      {
+        panelClass: 'mat-dialog-lg',
+        data: cat,
+        disableClose: true,
+        ariaLabel: "System dialog"
+      });
+    dialogRef.afterClosed().subscribe(cat => {
+      if (cat) {
+        this.updateItems(cat);
+      }
+    });
   }
 
 }

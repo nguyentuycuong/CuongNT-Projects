@@ -5,7 +5,8 @@
 
 import { NgModule, ErrorHandler } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { FlexLayoutModule } from '@angular/flex-layout'
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -70,16 +71,18 @@ import { AboutComponent } from "./public/about/about.component";
 import { CategoryComponent } from "./components/category/category.component";
 import { AppEndpoint } from "./services/app-services/app-endpoint.service";
 import { CategoryService } from "./services/app-services/category.service";
+import { CategoryEditorComponent } from "./components/category/category-editor.component";
 
 
 
 
 @NgModule({
   imports: [
+    FlexLayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -124,7 +127,7 @@ import { CategoryService } from "./services/app-services/category.service";
     NavComponent,
     DialogOverviewExampleDialog,
     LayoutComponent,
-    PublicComponent, CategoryComponent
+    PublicComponent, CategoryComponent, CategoryEditorComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },

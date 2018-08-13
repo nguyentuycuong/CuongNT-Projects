@@ -6,16 +6,6 @@ var Category = /** @class */ (function () {
         this.description = description;
         this.order = order;
     }
-    Object.defineProperty(Category.prototype, "friendlyName", {
-        get: function () {
-            var name = this.name || this.name;
-            if (this.name)
-                name = this.name + " " + name;
-            return name;
-        },
-        enumerable: true,
-        configurable: true
-    });
     return Category;
 }());
 exports.Category = Category;

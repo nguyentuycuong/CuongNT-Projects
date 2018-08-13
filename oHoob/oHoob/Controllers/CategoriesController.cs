@@ -49,6 +49,10 @@ namespace oHoob.Controllers
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
@@ -83,13 +87,13 @@ namespace oHoob.Controllers
         }
 
         // POST: api/Categories
-        [HttpPost]
+        [HttpPost()]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();

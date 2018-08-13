@@ -20,6 +20,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from './layout/public.component';
 import { AboutComponent } from './public/about/about.component';
 import { CategoryComponent } from './components/category/category.component';
+import { CategoryEditorComponent } from './components/category/category-editor.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: "app/orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
       { path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
       { path: "app/categories", component: CategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
+      { path: "app/categories/new", component: CategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
     ]
   },
 

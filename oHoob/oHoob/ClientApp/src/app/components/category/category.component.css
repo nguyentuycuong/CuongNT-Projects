@@ -7,3 +7,33 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+.mat-dialog-sm {
+  min-width: 40vw
+}
+
+@media screen and (max-width:959px) {
+  .mat-dialog-sm {
+    min-width: 90vw
+  }
+}
+
+.mat-dialog-md {
+  min-width: 50vw
+}
+
+@media screen and (max-width:959px) {
+  .mat-dialog-md {
+    min-width: 90vw
+  }
+}
+
+.mat-dialog-lg {
+  min-width: 60vw;
+}
+
+@media screen and (max-width:959px) {
+  .mat-dialog-lg {
+    min-width: 90vw
+  }
+}

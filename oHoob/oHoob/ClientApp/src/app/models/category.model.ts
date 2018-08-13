@@ -8,20 +8,20 @@ export class Category {
     this.order = order;
   }
 
-  get friendlyName(): string {
-    let name = this.name || this.name;
+  //get friendlyName(): string {
+  //  let name = this.name || this.name;
 
-    if (this.name)
-      name = this.name + " " + name;
+  //  if (this.name)
+  //    name = this.name + " " + name;
 
-    return name;
-  }
+  //  return name;
+  //}
 
   public id: string;
   public name: string;
   public description: string;
   public order: string;
-  public isActive: string;
+  public isActive: boolean;
   public appName: string;
   public userId: string;
   public categoryParent: number;

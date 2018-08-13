@@ -54,6 +54,7 @@ export class CategoryService {
 
 
   newUser(user: Category) {
+    
     return this.appEndpoint.getNewItemEndpoint<Category>(user);
   }
 
