@@ -15,6 +15,7 @@ export type RolesChangedEventArg = { roles: Role[] | string[], operation: RolesC
 
 @Injectable()
 export class CategoryService {
+  
   public static readonly roleAddedOperation: RolesChangedOperation = "add";
   public static readonly roleDeletedOperation: RolesChangedOperation = "delete";
   public static readonly roleModifiedOperation: RolesChangedOperation = "modify";
@@ -58,5 +59,8 @@ export class CategoryService {
     return this.appEndpoint.getNewItemEndpoint<Category>(user);
   }
 
+  deleteUser(userOrUserId: string): Observable<Category> {
 
+    return this.appEndpoint.getDeleteItemEndpoint<Category>(<string>userOrUserId);
+  }
 }

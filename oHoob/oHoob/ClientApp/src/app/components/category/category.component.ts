@@ -99,7 +99,7 @@ export class CategoryComponent implements OnInit {
 
   private editItemClick(cat?: Category) {
     this.sourceCategory = cat;
-
+    
     let dialogRef = this.dialog.open(CategoryEditorComponent,
       {
         panelClass: 'mat-dialog-lg',
@@ -114,4 +114,29 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  private confirmDelete(currentItem: Category) {
+    this.snackBar.open(`Delete ${currentItem.name}?`, 'DELETE', { duration: 5000 })
+      .onAction().subscribe(() => {
+        this.alertService.startLoadingMessage("Deleting...");
+        this.loadingIndicator = true;
+
+        this.categoryService.deleteUser(currentItem.id)
+          .subscribe(results => {
+            this.alertService.stopLoadingMessage();
+            this.loadingIndicator = false;
+            this.dataSource.data = this.dataSource.data.filter(item => item !== currentItem)
+          },
+          error => {
+            
+              this.alertService.stopLoadingMessage();
+              this.loadingIndicator = false;
+
+              this.alertService.showStickyMessage("Delete Error",
+                `An error occured whilst deleting the user.\r\nError: "${Utilities
+                  .getHttpResponseMessage(error)}"`,
+                MessageSeverity.error,
+                error);
+            })
+      });
+  }
 }

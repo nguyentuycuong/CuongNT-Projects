@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { User } from '../../models/user.model';
@@ -7,7 +7,7 @@ import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { AppTranslationService } from '../../services/app-translation.service';
 import { AccountService } from '../../services/account.service';
 import { EqualValidator } from '../../directives/equal-validator.directive';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Category } from '../../models/category.model';
 import { CategoryService } from '../../services/app-services/category.service';
 
@@ -39,8 +39,12 @@ export class CategoryEditorComponent implements OnInit {
     private translationService: AppTranslationService,
     private catService: CategoryService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<CategoryEditorComponent>
+    public dialogRef: MatDialogRef<CategoryEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Category 
   ) {
+    if (data) {
+      this.item = data;
+      this.isNewItem = false;
+    }
     this.buildForm();
   }
 
