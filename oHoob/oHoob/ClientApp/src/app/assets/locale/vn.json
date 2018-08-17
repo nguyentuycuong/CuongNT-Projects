@@ -1,37 +1,38 @@
 {
   "app": {
-    "Welcome": "Welcome",
-    "Notifications": "Notifications",
-    "New": "New",
-    "AppTitle": "Money Lover",
-    "FieldRequired": "This field is required",
-    "AddNew": "Add New",
-    "Save": "Save",
-    "Update": "Update",
-    "Cancel": "Cancel",
-    "Delete": "Delete",
+    "Welcome": "Cám ơn bạn đã ghé thăm chúng tôi",
+    "Notifications": "Tin báo",
+    "New": "Tạo mới",
+    "AppTitle": "Hệ thống quản lý sản phẩm v0.1",
+    "FieldRequired": "Trường này không thể trống",
+    "AddNew": "Tạo mới",
+    "Save": "Lưu",
+    "Update": "Cập nhật",
+    "Cancel": "Hủy",
+    "Delete": "Xóa",
     "Action": "Hoạt động",
-    "Filler": "Filter"
+    "Filler": "Tìm kiếm"
+
   },
   "mainMenu": {
     "Appointments": "Appointments",
-    "Home": "Home",
-    "Category": "Category",
-    "CategoryPro": "Product Category",
-    "Customers": "Customers",
-    "Products": "Products",
-    "Orders": "Orders",
-    "About": "About",
-    "Logout": "Logout"
+    "Home": "Trang chủ",
+    "Category": "Nhóm tin tức",
+    "CategoryPro": "Nhóm sản phẩm",
+    "Customers": "Khách hàng",
+    "Products": "Sản phẩm",
+    "Orders": "Đơn hàng",
+    "About": "Giới thiệu",
+    "Logout": "Thoát"
   },
   "pageHeader": {
     "Dashboard": "Dashboard",
-    "Customers": "Customers",
-    "Products": "Products",
-    "Orders": "Orders",
-    "NotFound": "Not-Found",
-    "About": "About",
-    "Settings": "Settings"
+    "Customers": "Khách hàng",
+    "Products": "Sản phẩm",
+    "Orders": "Đơn hàng",
+    "NotFound": "Dữ liệu không được tìm thấy",
+    "About": "Giới thiệu",
+    "Settings": "Cài đặt"
   },
   "home": {
     "NoWidgets1": "You have no widgets displayed. Goto",
@@ -40,18 +41,18 @@
   },
   "notFound": {
     "404": "404",
-    "pageNotFound": "The page you are looking for does not exist",
-    "backToHome": "Back to home"
+    "pageNotFound": "Trang bạn tìm kiếm không tồn tại",
+    "backToHome": "Về trang chủ"
   },
   "settings": {
     "tab": {
-      "Profile": "Profile",
+      "Profile": "Thông tin cá nhân",
       "Preferences": "Preferences",
       "Users": "Users",
       "Roles": "Roles"
     },
     "header": {
-      "UserProfile": "User Profile",
+      "UserProfile": "Thông tin cá nhân",
       "UserPreferences": "User Preferences",
       "UserDepartments": "User Departments",
       "UsersManagements": "Users Managements",
@@ -61,9 +62,9 @@
   "preferences": {
     "ReloadPreferences": "Reload Preferences:",
     "ReloadPreferencesHint": "Load default preferences (local changes are discarded)",
-    "Language": "Language:",
+    "Language": "Ngôn ngữ:",
     "English": "English",
-    "Vietnamese": "Vietnamese",    
+    "Vietnamese": "Tiếng Việt",    
     "LanguageHint": "Select the preferred language for your account",
     "HomePage": "Home Page:",
     "Dashboard": "Dashboard",
@@ -187,12 +188,12 @@
     }
   },
   "category": {
-    "Title": "Category",
-    "Name": "Name",
-    "Description": "Description",
-    "Order": "Order",
-    "Active": "Active",
-    "UpdateTitle": "Update category",
-    "AddTitle": "Add new category"
+    "Title": "Danh mục tin tức",
+    "Name": "Tiêu đề",
+    "Description": "Diển giải",
+    "Order": "Thứ tự",
+    "Active": "Kích hoạt",
+    "UpdateTitle": "Cập nhật danh mục tin",
+    "AddTitle": "Thêm mới danh mục tin"
   }
 }

@@ -1,37 +1,34 @@
-<h1 mat-dialog-title>{{userName ? ('users.management.EditUser' | translate:userName) : ('users.management.NewUser' | translate)}}</h1>
+<h1 mat-dialog-title>{{isNewItem ? ('category.AddTitle' | translate) : ('category.UpdateTitle' | translate)}}</h1>
 <div mat-dialog-content class="mat-dialog-lg">
   <form #form="ngForm" [formGroup]="itemForm" novalidate (ngSubmit)="save()" fxLayout="column" [fxLayoutGap]="isEditMode ? '1em' : '1em'" autocomplete="off">
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
       <mat-form-field [floatLabel]="floatLabels" fxFlex>
-        <mat-label>Name</mat-label>
+        <mat-label>{{'category.Name' | translate}}</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
 
       <mat-form-field [floatLabel]="floatLabels" fxFlex>
-        <mat-label>Description</mat-label>
+        <mat-label>{{'category.Description' | translate}}</mat-label>
         <input matInput formControlName="description" />
       </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
       <mat-form-field [floatLabel]="floatLabels" fxFlex>
-        <mat-label>Order</mat-label>
+        <mat-label>{{'category.Order' | translate}}</mat-label>
         <input matInput formControlName="order" type="number" />
       </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
 
       <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
-        <mat-checkbox formControlName="isActive">{{'users.editor.Enabled' | translate}}</mat-checkbox>
+        <mat-checkbox formControlName="isActive">{{'category.Active' | translate}}</mat-checkbox>
       </div>
-
     </div>
-
-
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="save();" color="primary">Save</button>
-  <button mat-raised-button (click)="cancel()" color="warn">Cancel</button>
+  <button mat-raised-button (click)="save();" color="primary">{{'app.Save' | translate}}</button>
+  <button mat-raised-button (click)="cancel()" color="warn">{{'app.Cancel' | translate}}</button>
 </div>
 

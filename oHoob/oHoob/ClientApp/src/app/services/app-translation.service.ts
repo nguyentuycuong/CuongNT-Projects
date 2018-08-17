@@ -12,7 +12,7 @@ import { Observable, Subject, of } from 'rxjs';
 @Injectable()
 export class AppTranslationService {
 
-  readonly defaultLanguage = "en";
+  readonly defaultLanguage = "vn";
   private onLanguageChanged = new Subject<string>();
   languageChanged$ = this.onLanguageChanged.asObservable();
 
@@ -43,7 +43,7 @@ export class AppTranslationService {
   useBrowserLanguage(): string | void {
     let browserLang = this.getBrowserLanguage();
 
-    if (browserLang.match(/en|fr|de|ar|ko|pt/)) {
+    if (browserLang.match(/vn|en/)) {
       this.changeLanguage(browserLang);
       return browserLang;
     }
@@ -86,18 +86,10 @@ export class TranslateLanguageLoader implements TranslateLoader {
     //Note Dynamic require(variable) will not work. Require is always at compile time
 
     switch (lang) {
+      case "vn":
+        return of(require("../assets/locale/vn.json"));
       case "en":
-        return of(require("../assets/locale/en.json"));
-      case "fr":
-        return of(require("../assets/locale/fr.json"));
-      case "de":
-        return of(require("../assets/locale/de.json"));
-      case "pt":
-        return of(require("../assets/locale/pt.json"));
-      case "ar":
-        return of(require("../assets/locale/ar.json"));
-      case "ko":
-        return of(require("../assets/locale/ko.json"));
+        return of(require("../assets/locale/en.json"));      
       default:
     }
   }

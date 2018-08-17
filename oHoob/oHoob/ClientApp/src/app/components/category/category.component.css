@@ -37,3 +37,7 @@ table {
     min-width: 90vw
   }
 }
+
+.mat-dialog-content{
+  overflow:inherit;
+}

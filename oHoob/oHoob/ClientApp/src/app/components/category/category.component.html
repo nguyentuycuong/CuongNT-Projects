@@ -3,7 +3,7 @@
 </header>
 <div class="col-sm-8">
   <mat-form-field class="col-sm-8">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'app.Filler' | translate}}">
   </mat-form-field>
 </div>
 <div class="col-sm-4" style="vertical-align:bottom; padding-top:10px">
@@ -18,34 +18,34 @@
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef fxFlex="50%"> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="50%"> {{'category.Name' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.name}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef fxFlex="20%"> Description </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="20%"> {{'category.Description' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="order">
-      <mat-header-cell *matHeaderCellDef fxFlex="10%"> Order </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'category.Order' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.order}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="active">
-      <mat-header-cell *matHeaderCellDef fxFlex="10%"> Active </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'category.Active' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.isActive}} </mat-cell>
     </ng-container>
     <!-- Action -->
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> Action </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> {{'app.Action' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
-        <button mat-icon-button matTooltip="{{'users.management.Edit' | translate}}" (click)="editItemClick(element)">
+        <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="{{'users.management.Delete' | translate}}" (click)="confirmDelete(element)">
+        <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
           <mat-icon color="warn">delete</mat-icon>
         </button>
       </mat-cell>
