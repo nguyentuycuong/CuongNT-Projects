@@ -10,6 +10,7 @@ import { EqualValidator } from '../../directives/equal-validator.directive';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Category } from '../../models/category.model';
 import { CategoryService } from '../../services/app-services/category.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-category-editor',
@@ -35,6 +36,7 @@ export class CategoryEditorComponent implements OnInit {
   private isSaving = false;
 
   constructor(
+    private authService: AuthService,
     private alertService: AlertService,
     private translationService: AppTranslationService,
     private catService: CategoryService,
@@ -48,8 +50,7 @@ export class CategoryEditorComponent implements OnInit {
     }
     else {
       this.buildForm();
-    }
-    
+    }    
   }
 
   ngOnInit() {
@@ -117,7 +118,7 @@ export class CategoryEditorComponent implements OnInit {
       order: formModel.order,
       isActive: (formModel.isActive) ? formModel.isActive : false,
       appName: 'News',
-      userId: '',
+      userId: this.authService.currentUser.id,
       categoryParent: 0
     };
   }
@@ -145,8 +146,7 @@ export class CategoryEditorComponent implements OnInit {
       error);
     this.alertService.showStickyMessage(error, null, MessageSeverity.error);
   }
-
-  
+    
   cancel(): void {
     this.dialogRef.close(null);
   }

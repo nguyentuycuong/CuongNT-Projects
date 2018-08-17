@@ -8,21 +8,27 @@ using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Models;
 using oHoob.Helpers;
+using AspNet.Security.OpenIdConnect.Primitives;
+using Microsoft.AspNetCore.Authorization;
+using OpenIddict.Validation;
 
 namespace oHoob.Controllers
 {
+    [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context, IHttpContextAccessor httpAccessor)
         {
             _context = context;
+            _context.CurrentUserId = httpAccessor.HttpContext.User.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
         }
 
         // GET: api/Categories
+        //[Authorize(Authorization.Policies.ViewAllUsersPolicy)]
         [HttpGet]
         public IEnumerable<Category> GetCategories()
         {
@@ -67,6 +73,7 @@ namespace oHoob.Controllers
             }
 
             
+            category.UpdatedBy = category.UserId;
             _context.Entry(category).State = EntityState.Modified;
 
             try
@@ -96,6 +103,8 @@ namespace oHoob.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
+            category.CreatedBy = category.UserId;
+            category.UpdatedBy = category.UserId;
 
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
