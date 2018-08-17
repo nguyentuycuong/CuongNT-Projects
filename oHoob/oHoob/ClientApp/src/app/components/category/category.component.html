@@ -16,34 +16,32 @@
 <div class="mat-elevation-z8">
   <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="50%"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.name}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="20%"> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="order">
-      <mat-header-cell *matHeaderCellDef> Order </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.order}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> Order </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.order}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="active">
-      <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> Active </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.isActive}} </mat-cell>
     </ng-container>
     <!-- Action -->
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef style="text-align:center; width:10%"> Action </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="140px">
+      <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
         <button mat-icon-button matTooltip="{{'users.management.Edit' | translate}}" (click)="editItemClick(element)">
           <mat-icon>edit</mat-icon>
         </button>

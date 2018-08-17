@@ -41,11 +41,15 @@ export class CategoryEditorComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<CategoryEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Category 
   ) {
-    if (data) {
+    if (data.id) {
       this.item = data;
       this.isNewItem = false;
+      this.buildEditForm(data)
     }
-    this.buildForm();
+    else {
+      this.buildForm();
+    }
+    
   }
 
   ngOnInit() {
@@ -58,9 +62,17 @@ export class CategoryEditorComponent implements OnInit {
       description: '',
       order: 0,
       isActive: ''
-    });
+    });    
+  }
 
-    
+  private buildEditForm(cat: Category) {
+    this.itemForm = this.formBuilder.group({
+
+      name: [cat.name, Validators.required],
+      description: cat.description,
+      order: cat.order,
+      isActive: cat.isActive
+    });
   }
 
   public save() {
@@ -81,6 +93,7 @@ export class CategoryEditorComponent implements OnInit {
 
     const editedUser = this.getEditedItem();
 
+    //alert(this.isNewItem)
     if (this.isNewItem) {
       
       this.catService.newUser(editedUser).subscribe(
@@ -102,7 +115,7 @@ export class CategoryEditorComponent implements OnInit {
       name: formModel.name,
       description: formModel.description,
       order: formModel.order,
-      isActive: true,
+      isActive: (formModel.isActive) ? formModel.isActive : false,
       appName: 'News',
       userId: '',
       categoryParent: 0

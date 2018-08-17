@@ -103,7 +103,7 @@ export class CategoryComponent implements OnInit {
     let dialogRef = this.dialog.open(CategoryEditorComponent,
       {
         panelClass: 'mat-dialog-lg',
-        data: cat,
+        data: (cat) ? cat : new Category,
         disableClose: true,
         ariaLabel: "System dialog"
       });

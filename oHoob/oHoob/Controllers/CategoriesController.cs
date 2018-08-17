@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Models;
+using oHoob.Helpers;
 
 namespace oHoob.Controllers
 {
@@ -25,7 +26,7 @@ namespace oHoob.Controllers
         [HttpGet]
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories;
+            return _context.Categories.Where(c=>c.AppName == Constant.appNews).ToList();
         }
 
         // GET: api/Categories/5
@@ -65,6 +66,7 @@ namespace oHoob.Controllers
                 return BadRequest();
             }
 
+            
             _context.Entry(category).State = EntityState.Modified;
 
             try
