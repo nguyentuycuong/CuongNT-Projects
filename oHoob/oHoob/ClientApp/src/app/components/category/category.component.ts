@@ -25,13 +25,14 @@ export interface PeriodicElement {
 })
 
 export class CategoryComponent implements OnInit {
+  loadingIndicator: boolean;
   sourceCategory: Category;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
   dataSource: MatTableDataSource<Category>;
-  loadingIndicator: boolean;
+  
 
   constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {    
     this.dataSource = new MatTableDataSource();

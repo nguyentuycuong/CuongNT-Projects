@@ -53,6 +53,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   loginModal: ModalDirective;
   loginControl: LoginComponent;
 
+  loadingIndicator: boolean = true;
+
 
   get notificationsTitle() {
 

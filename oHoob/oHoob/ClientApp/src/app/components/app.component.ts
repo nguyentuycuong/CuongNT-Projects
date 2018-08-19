@@ -13,4 +13,5 @@ import { Router, NavigationStart } from '@angular/router';
   
 })
 export class AppComponent {
+  appTitle = "oHoob";
 }
