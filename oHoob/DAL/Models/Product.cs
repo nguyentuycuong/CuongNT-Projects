@@ -17,7 +17,7 @@ namespace DAL.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Icon { get; set; }
+        public string Icon { get; set; }            
         public decimal BuyingPrice { get; set; }
         public decimal SellingPrice { get; set; }
         public int UnitsInStock { get; set; }
@@ -26,6 +26,10 @@ namespace DAL.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
+        public string Gallery { get; set; }
+        public decimal OldPrice { get; set; }
+        public bool IsPromote { get; set; }
+        public bool IsHot { get; set; }
 
         public int? ParentId { get; set; }
         public Product Parent { get; set; }

@@ -13,9 +13,9 @@ import { ConfigurationService } from '../configuration.service';
 
 
 @Injectable()
-export class AppEndpoint extends EndpointFactory {
+export class CategoryServiceEndpoint extends EndpointFactory {
 
-  public _controller;
+  public _controller: string;
   public _controllerUrl: string;
   public _controllerNameUrl: string;
   public _currentUserUrl: string;
@@ -38,7 +38,7 @@ export class AppEndpoint extends EndpointFactory {
 
 
   constructor(http: HttpClient, configurations: ConfigurationService, injector: Injector) {
-
+    
     super(http, configurations, injector);
   }
 
@@ -67,9 +67,7 @@ export class AppEndpoint extends EndpointFactory {
 
   getItemsEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
     let endpointUrl = page && pageSize ? `${this.controllerUrl}/${page}/${pageSize}` : this.controllerUrl;
-    //console.log(endpointUrl);
-    //alert(endpointUrl);
-
+    
     return this.http.get<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getItemsEndpoint(page, pageSize));

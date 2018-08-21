@@ -64,7 +64,7 @@
     "ReloadPreferencesHint": "Load default preferences (local changes are discarded)",
     "Language": "Ngôn ngữ:",
     "English": "English",
-    "Vietnamese": "Tiếng Việt",    
+    "Vietnamese": "Tiếng Việt",
     "LanguageHint": "Select the preferred language for your account",
     "HomePage": "Home Page:",
     "Dashboard": "Dashboard",
@@ -195,5 +195,14 @@
     "Active": "Kích hoạt",
     "UpdateTitle": "Cập nhật danh mục tin",
     "AddTitle": "Thêm mới danh mục tin"
+  },
+  "productsCategory": {
+    "Title": "Danh mục sản phẩm",
+    "Name": "Tiêu đề",
+    "Description": "Diển giải",
+    "Order": "Thứ tự",
+    "Active": "Kích hoạt",
+    "UpdateTitle": "Cập nhật danh mục sản phẩm",
+    "AddTitle": "Thêm mới danh sản phẩm"
   }
 }

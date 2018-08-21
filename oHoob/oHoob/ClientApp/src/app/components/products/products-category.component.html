@@ -1,0 +1,61 @@
+<header class="pageHeader">
+  <h3> <mat-icon>category</mat-icon> {{'productsCategory.Title' | translate}}</h3>
+</header>
+<div class="col-sm-8">
+  <mat-form-field class="col-sm-8">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'app.Filler' | translate}}">
+  </mat-form-field>
+</div>
+<div class="col-sm-4" style="vertical-align:bottom; padding-top:10px">
+  <button color="primary" mat-button class="mat-button mat-primary" (click)="editItemClick()">
+    <span class="mat-button-wrapper">
+      <mat-icon class="mat-button-icon mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>{{'app.AddNew' | translate}}
+    </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
+  </button>
+</div>
+<div class="mat-elevation-z8">
+  <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef fxFlex="50%"> {{'category.Name' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef fxFlex="20%"> {{'category.Description' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.description}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="order">
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'category.Order' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.order}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="active">
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'category.Active' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.isActive}} </mat-cell>
+    </ng-container>
+    <!-- Action -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> {{'app.Action' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
+        <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[7, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>

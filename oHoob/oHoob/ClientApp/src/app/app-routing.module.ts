@@ -21,6 +21,8 @@ import { PublicComponent } from './layout/public.component';
 import { AboutComponent } from './public/about/about.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CategoryEditorComponent } from './components/category/category-editor.component';
+import { ProductsCategoryComponent } from './components/products/products-category.component';
+import { ProductsCategoryEditorComponent } from './components/products/products-category-editor.component';
 
 
 const routes: Routes = [
@@ -40,6 +42,8 @@ const routes: Routes = [
       //{ path: "app/settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
       { path: "app/categories", component: CategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
       { path: "app/categories/new", component: CategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
+      { path: "app/category/products", component: ProductsCategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
+      { path: "app/category/products/new", component: ProductsCategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
     ]
   },
 

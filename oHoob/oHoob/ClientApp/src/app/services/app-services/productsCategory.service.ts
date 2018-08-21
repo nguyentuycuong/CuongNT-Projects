@@ -3,7 +3,7 @@ import { Router, NavigationExtras } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { CategoryServiceEndpoint } from './category.endpoint.service';
+import { ProductsCategoryServiceEndpoint } from './productsCategory.endpoint.service';
 import { Role } from '../../models/role.model';
 import { AuthService } from '../auth.service';
 import { Category } from '../../models/category.model';
@@ -14,7 +14,7 @@ export type RolesChangedOperation = "add" | "delete" | "modify";
 export type RolesChangedEventArg = { roles: Role[] | string[], operation: RolesChangedOperation };
 
 @Injectable()
-export class CategoryService {
+export class ProductsCategoryService {
   
   public static readonly roleAddedOperation: RolesChangedOperation = "add";
   public static readonly roleDeletedOperation: RolesChangedOperation = "delete";
@@ -23,8 +23,8 @@ export class CategoryService {
   private _rolesChanged = new Subject<RolesChangedEventArg>();
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService,
-    private appEndpoint: CategoryServiceEndpoint) {
-    appEndpoint._controller = "/api/Categories";
+    private appEndpoint: ProductsCategoryServiceEndpoint) {
+    appEndpoint._controller = "/api/ProductCategory";
     appEndpoint._controllerUrl = "";
     appEndpoint._controllerNameUrl = "/name";    
   }

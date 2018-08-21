@@ -69,9 +69,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from "./layout/public.component";
 import { AboutComponent } from "./public/about/about.component";
 import { CategoryComponent } from "./components/category/category.component";
-import { AppEndpoint } from "./services/app-services/app-endpoint.service";
+//import { CategoryServiceEndpoint } from "./services/app-services/app-endpoint.service";
 import { CategoryService } from "./services/app-services/category.service";
 import { CategoryEditorComponent } from "./components/category/category-editor.component";
+import { ProductsCategoryService } from "./services/app-services/productsCategory.service";
+import { ProductsCategoryComponent } from "./components/products/products-category.component";
+import { ProductsCategoryEditorComponent } from "./components/products/products-category-editor.component";
+import { CategoryServiceEndpoint } from "./services/app-services/category.endpoint.service";
+import { ProductsCategoryServiceEndpoint } from "./services/app-services/productsCategory.endpoint.service";
 
 
 
@@ -127,7 +132,8 @@ import { CategoryEditorComponent } from "./components/category/category-editor.c
     NavComponent,
     DialogOverviewExampleDialog,
     LayoutComponent,
-    PublicComponent, CategoryComponent, CategoryEditorComponent
+    PublicComponent, CategoryComponent, CategoryEditorComponent,
+    ProductsCategoryComponent, ProductsCategoryEditorComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
@@ -142,8 +148,10 @@ import { CategoryEditorComponent } from "./components/category/category-editor.c
     AccountEndpoint,
     LocalStoreManager,
     EndpointFactory,
-    AppEndpoint,
+    CategoryServiceEndpoint,
     CategoryService,
+    ProductsCategoryService,
+    ProductsCategoryServiceEndpoint
   ],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, DialogOverviewExampleDialog]

@@ -18,9 +18,6 @@ import { User } from '../models/user.model';
 import { Role } from '../models/role.model';
 import { Permission, PermissionNames, PermissionValues } from '../models/permission.model';
 import { UserEdit } from '../models/user-edit.model';
-import { AppEndpoint } from './app-services/app-endpoint.service';
-
-
 
 export type RolesChangedOperation = "add" | "delete" | "modify";
 export type RolesChangedEventArg = { roles: Role[] | string[], operation: RolesChangedOperation };
