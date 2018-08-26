@@ -14,5 +14,6 @@ namespace DAL.Models
         public string AppName { get; set; }
         public string UserId { get; set; }
         public int CategoryParent { get; set; }
+        public string Icon { get; set; }
     }
 }
