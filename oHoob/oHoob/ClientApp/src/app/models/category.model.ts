@@ -25,5 +25,5 @@ export class Category {
   public appName: string;
   public userId: string;
   public categoryParent: number;
-  
+  public icon: string;
 }

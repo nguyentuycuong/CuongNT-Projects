@@ -119,7 +119,8 @@ export class CategoryEditorComponent implements OnInit {
       isActive: (formModel.isActive) ? formModel.isActive : false,
       appName: 'News',
       userId: this.authService.currentUser.id,
-      categoryParent: 0
+      categoryParent: 0,
+      icon: ''
     };
   }
   private saveCompleted(cat?: Category) {

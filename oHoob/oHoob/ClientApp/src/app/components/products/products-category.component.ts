@@ -30,7 +30,7 @@ export class ProductsCategoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
+  displayedColumns: string[] = ['name', 'description', 'order', 'active', 'image', 'action'];
   dataSource: MatTableDataSource<Category>;
   
 

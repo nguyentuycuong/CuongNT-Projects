@@ -38,12 +38,20 @@
       <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'category.Active' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.isActive}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> Ảnh </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%">
+        <img src="/{{element.icon}}" width="100px" />
+      
+      </mat-cell>
+    </ng-container>
     <!-- Action -->
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> {{'app.Action' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
         <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
-          <mat-icon>edit</mat-icon>
+          <mat-icon color="primary">edit</mat-icon>
         </button>
         <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
           <mat-icon color="warn">delete</mat-icon>
