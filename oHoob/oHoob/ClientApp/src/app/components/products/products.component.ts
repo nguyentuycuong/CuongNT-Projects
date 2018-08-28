@@ -35,9 +35,7 @@ export class ProductsComponent {
       this.animal = result;
     });
   }
-
 }
-
 
 @Component({
   selector: 'dialog-overview-example-dialog',

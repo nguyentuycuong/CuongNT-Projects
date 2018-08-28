@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../services/animations';
 import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar, MatDialog } from '@angular/material';
-//import { CategoryService } from '../../services/app-services/category.service';
 import { AccountService } from '../../services/account.service';
 import { CategoryService } from '../../services/app-services/category.service';
 import { Category } from '../../models/category.model';
@@ -14,7 +13,6 @@ export interface PeriodicElement {
   id: number;
   description: number;
   order: string;
-
 }
 
 @Component({
@@ -32,13 +30,9 @@ export class CategoryComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
   dataSource: MatTableDataSource<Category>;
-  
-
-  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {    
+  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource();
-    
   }
-  
 
   ngOnInit() {
     this.loadData();
@@ -59,7 +53,6 @@ export class CategoryComponent implements OnInit {
   }
 
   private loadData() {
-
     this.loadingIndicator = true;
 
     this.categoryService.getItems().subscribe(result => this.onDataLoadSuccessful(result), error => this.onDataLoadFailed(error));
@@ -71,7 +64,6 @@ export class CategoryComponent implements OnInit {
   }
 
   private onDataLoadFailed(error: any) {
-    
     this.loadingIndicator = false;
 
     this.alertService.showStickyMessage("Load Error",
@@ -82,14 +74,12 @@ export class CategoryComponent implements OnInit {
 
   private updateItems(cat: Category) {
     if (this.sourceCategory) {
-      
       Object.assign(this.sourceCategory, cat);
       this.alertService.showMessage("Success",
         `Changes to item \"${cat.name}\" was saved successfully`,
         MessageSeverity.success);
       this.sourceCategory = null;
     } else {
-      
       this.dataSource.data.push(cat);
       this.refresh();
       this.alertService.showMessage("Success",
@@ -100,7 +90,7 @@ export class CategoryComponent implements OnInit {
 
   private editItemClick(cat?: Category) {
     this.sourceCategory = cat;
-    
+
     let dialogRef = this.dialog.open(CategoryEditorComponent,
       {
         panelClass: 'mat-dialog-lg',
@@ -127,8 +117,7 @@ export class CategoryComponent implements OnInit {
             this.loadingIndicator = false;
             this.dataSource.data = this.dataSource.data.filter(item => item !== currentItem)
           },
-          error => {
-            
+            error => {
               this.alertService.stopLoadingMessage();
               this.loadingIndicator = false;
 
