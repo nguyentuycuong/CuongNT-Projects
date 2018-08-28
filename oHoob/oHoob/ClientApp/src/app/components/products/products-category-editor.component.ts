@@ -187,9 +187,9 @@ export class ProductsCategoryEditorComponent implements OnInit {
     let canvas = this.mycanvas.nativeElement;
     let context = canvas.getContext("2d");
     context.clearRect(0, 0, 200, 200);
-   // alert(1);
+   
     var render = new FileReader();
-    render.onload = function (event) {
+    render.onload = function (event: any) {
       var image = new Image();
       image.onload = function () {
         canvas.width = image.width > 300 ? 300 : image.width;
@@ -198,6 +198,7 @@ export class ProductsCategoryEditorComponent implements OnInit {
       }
 
       image.src = event.target.result;
+
     };
 
     if (e.target.files.length > 0) {
