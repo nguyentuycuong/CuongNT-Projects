@@ -71,12 +71,21 @@ export class ProductEditorComponent implements OnInit {
 
   private buildForm() {
     this.itemForm = this.formBuilder.group({
-
       name: ['', Validators.required],
       description: '',
-      order: 0,
-      isActive: '',
-      icon: ''
+      isActive: true,
+      productCategoryId: 0,
+      icon: '',
+      buyingPrice: '',
+      sellingPrice: '',
+      oldPrice: '',
+      unitsInStock: 1,
+      isDiscontinued: false,
+      isPromote: false,
+      isHot: false,
+      gallery: '',
+      productCode: '',
+      content: '',
     });
   }
 

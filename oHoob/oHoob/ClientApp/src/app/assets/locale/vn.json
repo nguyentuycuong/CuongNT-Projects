@@ -207,9 +207,22 @@
   },
   "product": {
     "Title": "Danh sách sản phẩm",
-    "Name": "Tiêu đề",
+    "Name": "Tên sản phẩm",
     "Description": "Diển giải",
+    "BuyingPrice": "Giá mua",
+    "SellingPrice": "Giá bán",
+    "OldPrice": "Giá cũ",
+    "Promote": "Sản phẩm khuyến mại",
+    "Hot": "Sản phẩm hot",
+    "ProductCode": "Mã sản phẩm",
+    "ReleaseDate": "Ngày phát hành",
+    "InfoDetail": "Thông tin chi tiết",
+    "Content": "Bài viết",
+    "UnitsInStock": "Số lượng",
+    "Discontinued": "Sản phẩm ngừng kinh doanh",
+    "Gallery": "Thư viện ảnh",
     "Active": "Kích hoạt",
+
     "UpdateTitle": "Cập nhật thông tin sản phẩm",
     "AddTitle": "Thêm mới sản phẩm"
   }

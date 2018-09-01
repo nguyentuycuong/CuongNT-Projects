@@ -41,3 +41,15 @@ table {
 .mat-dialog-content {
   overflow: inherit;
 }
+.tab-content
+{
+  padding-top:20px
+}
+.group-btn
+{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.app-tab-icon {
+  padding-right:30px;
+}
