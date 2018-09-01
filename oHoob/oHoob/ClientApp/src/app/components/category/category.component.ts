@@ -2,11 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../services/animations';
 import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { AccountService } from '../../services/account.service';
-import { CategoryService } from '../../services/app-services/category.service';
+import { CategoryService } from '../../services/app/category.service';
 import { Category } from '../../models/category.model';
 import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { Utilities } from '../../services/utilities';
 import { CategoryEditorComponent } from './category-editor.component';
+import { AppUtilities } from '../../services/app/app.utilities';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 export interface PeriodicElement {
   name: string;
@@ -23,6 +27,11 @@ export interface PeriodicElement {
 })
 
 export class CategoryComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+  );
+
   loadingIndicator: boolean;
   sourceCategory: Category;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,7 +39,7 @@ export class CategoryComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'description', 'order', 'active', 'action'];
   dataSource: MatTableDataSource<Category>;
-  constructor(private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {
+  constructor(private breakpointObserver: BreakpointObserver, private categoryService: CategoryService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource();
   }
 

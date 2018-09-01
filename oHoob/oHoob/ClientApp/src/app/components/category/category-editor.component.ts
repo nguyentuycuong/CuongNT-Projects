@@ -9,7 +9,7 @@ import { AccountService } from '../../services/account.service';
 import { EqualValidator } from '../../directives/equal-validator.directive';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Category } from '../../models/category.model';
-import { CategoryService } from '../../services/app-services/category.service';
+import { CategoryService } from '../../services/app/category.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

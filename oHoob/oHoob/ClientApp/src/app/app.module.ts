@@ -69,14 +69,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { PublicComponent } from "./layout/public.component";
 import { AboutComponent } from "./public/about/about.component";
 import { CategoryComponent } from "./components/category/category.component";
-//import { CategoryServiceEndpoint } from "./services/app-services/app-endpoint.service";
-import { CategoryService } from "./services/app-services/category.service";
+import { CategoryService } from "./services/app/category.service";
 import { CategoryEditorComponent } from "./components/category/category-editor.component";
-import { ProductsCategoryService } from "./services/app-services/productsCategory.service";
+import { ProductsCategoryService } from "./services/app/productsCategory.service";
 import { ProductsCategoryComponent } from "./components/products/products-category.component";
 import { ProductsCategoryEditorComponent } from "./components/products/products-category-editor.component";
-import { CategoryServiceEndpoint } from "./services/app-services/category.endpoint.service";
-import { ProductsCategoryServiceEndpoint } from "./services/app-services/productsCategory.endpoint.service";
+import { CategoryServiceEndpoint } from "./services/app/category.endpoint.service";
+import { ProductsCategoryServiceEndpoint } from "./services/app/productsCategory.endpoint.service";
+import { AppUtilities } from "./services/app/app.utilities";
 
 
 
@@ -151,7 +151,8 @@ import { ProductsCategoryServiceEndpoint } from "./services/app-services/product
     CategoryServiceEndpoint,
     CategoryService,
     ProductsCategoryService,
-    ProductsCategoryServiceEndpoint
+    ProductsCategoryServiceEndpoint,
+    AppUtilities
   ],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, DialogOverviewExampleDialog]

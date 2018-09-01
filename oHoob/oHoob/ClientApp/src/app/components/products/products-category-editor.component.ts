@@ -10,7 +10,7 @@ import { EqualValidator } from '../../directives/equal-validator.directive';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Category } from '../../models/category.model';
 import { AuthService } from '../../services/auth.service';
-import { ProductsCategoryService } from '../../services/app-services/productsCategory.service';
+import { ProductsCategoryService } from '../../services/app/productsCategory.service';
 import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 //import { RequestOptions } from '@angular/http';
 import { Event } from '@angular/router';
@@ -65,7 +65,7 @@ export class ProductsCategoryEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getImage(this.item.icon);
+    this.getImage(this.item.icon, this.mycanvas);
   }
 
   private buildForm() {
@@ -137,6 +137,7 @@ export class ProductsCategoryEditorComponent implements OnInit {
       icon: (this.fileName) ? this.folder + "/" + this.fileName : this.item.icon,
     };
   }
+
   private saveCompleted(cat?: Category) {
     if (cat) {
       this.item = cat;
@@ -166,9 +167,9 @@ export class ProductsCategoryEditorComponent implements OnInit {
     this.dialogRef.close(null);
   }
 
-  private getImage(urlImage) {
+  private getImage(urlImage, controlCanvas: any) {
     if (urlImage) {
-      let canvas = this.mycanvas.nativeElement;
+      let canvas = controlCanvas.nativeElement;
       let context = canvas.getContext("2d");
       context.clearRect(0, 0, 200, 200);
 

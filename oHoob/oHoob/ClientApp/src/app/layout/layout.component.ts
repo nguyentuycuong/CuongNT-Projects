@@ -26,9 +26,8 @@ var alertify: any = require('../assets/scripts/alertify.js');
   encapsulation: ViewEncapsulation.None
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
-
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  
+  public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
@@ -73,7 +72,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
     storageManager.initialiseStorageSyncListener();
 
-    translationService.addLanguages(["en", "fr", "de", "pt", "ar", "ko"]);
+    translationService.addLanguages(["vn", "en"]);
     translationService.setDefaultLanguage('en');
 
 

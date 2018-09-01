@@ -17,14 +17,13 @@
   <div style="height:5px">
     <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
   </div>
-  
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">    
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef fxFlex="50%"> {{'category.Name' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.name}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef fxFlex="20%"> {{'category.Description' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.description}} </mat-cell>
@@ -44,28 +43,40 @@
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef fxFlex="10%"> Ảnh </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%">
-        <img src="/{{element.icon}}" width="100px" />
-      
+        <img src="/{{element.icon}}" style="width:90%" />
       </mat-cell>
     </ng-container>
     <!-- Action -->
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> {{'app.Action' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
-        <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
-          <mat-icon color="primary">edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
+        <div *ngIf="!(isHandset$ | async)">
+          <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
+            <mat-icon color="primary">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="isHandset$ | async">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editItemClick(element)">
+              Edit
+            </button>
+            <button mat-menu-item (click)="confirmDelete(element)">
+              Delete
+            </button>
+          </mat-menu>
+        </div>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;">
     </mat-row>
-
   </table>
   <mat-paginator [pageSizeOptions]="[7, 10, 20]" showFirstLastButtons></mat-paginator>
-
 </div>

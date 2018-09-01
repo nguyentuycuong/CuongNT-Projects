@@ -42,12 +42,27 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef style="text-align:center;" fxFlex="10%"> {{'app.Action' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10%" style="text-align:center">
-        <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
+        <div *ngIf="!(isHandset$ | async)">
+          <button mat-icon-button matTooltip="{{'app.Update' | translate}}" (click)="editItemClick(element)">
+            <mat-icon color="primary">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="{{'app.Delete' | translate}}" (click)="confirmDelete(element)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="isHandset$ | async">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editItemClick(element)">
+              Edit
+            </button>
+            <button mat-menu-item (click)="confirmDelete(element)">
+              Delete
+            </button>
+          </mat-menu>
+        </div>
       </mat-cell>
     </ng-container>
 
