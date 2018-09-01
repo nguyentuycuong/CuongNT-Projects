@@ -203,6 +203,14 @@
     "Order": "Thứ tự",
     "Active": "Kích hoạt",
     "UpdateTitle": "Cập nhật danh mục sản phẩm",
-    "AddTitle": "Thêm mới danh sản phẩm"
+    "AddTitle": "Thêm mới danh mục sản phẩm"
+  },
+  "product": {
+    "Title": "Danh sách sản phẩm",
+    "Name": "Tiêu đề",
+    "Description": "Diển giải",
+    "Active": "Kích hoạt",
+    "UpdateTitle": "Cập nhật thông tin sản phẩm",
+    "AddTitle": "Thêm mới sản phẩm"
   }
 }

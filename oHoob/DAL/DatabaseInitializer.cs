@@ -131,7 +131,7 @@ namespace DAL
                     SellingPrice = 114234,
                     UnitsInStock = 12,
                     IsActive = true,
-                    ProductCategory = prodCat_1,
+                    //ProductCategory = prodCat_1,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };
@@ -144,7 +144,7 @@ namespace DAL
                     SellingPrice = 86990,
                     UnitsInStock = 4,
                     IsActive = true,
-                    ProductCategory = prodCat_1,
+                    //ProductCategory = prodCat_1,
                     DateCreated = DateTime.UtcNow,
                     DateModified = DateTime.UtcNow
                 };
@@ -183,8 +183,8 @@ namespace DAL
                 _context.Customers.Add(cust_3);
                 _context.Customers.Add(cust_4);
 
-                _context.Products.Add(prod_1);
-                _context.Products.Add(prod_2);
+                _context.Products1.Add(prod_1);
+                _context.Products1.Add(prod_2);
 
                 _context.Orders.Add(ordr_1);
                 _context.Orders.Add(ordr_2);

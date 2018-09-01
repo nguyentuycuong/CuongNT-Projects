@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{isNewItem ? ('product.AddTitle' | translate) : ('product.UpdateTitle' | translate)}}</h1>
+<div mat-dialog-content class="mat-dialog-lg">
+  <form #form="ngForm" [formGroup]="itemForm" novalidate (ngSubmit)="save(myFile.files)" fxLayout="column" [fxLayoutGap]="isEditMode ? '1em' : '1em'" autocomplete="off">
+
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+      <mat-form-field [floatLabel]="floatLabels" fxFlex>
+        <mat-label>{{'product.Name' | translate}}</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="floatLabels" fxFlex>
+        <mat-label>{{'product.Description' | translate}}</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+    </div>
+    
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+      <input #myFile type="file" accept="image/*" (change)="preview($event)" style="display:none" />
+      <br />
+      <br />
+      <canvas #myCanvas style="border:1px solid #808080; width:200px; height:200px" (click)="myFile.click()">Icon</canvas>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+      <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+        <mat-checkbox formControlName="isActive">{{'product.Active' | translate}}</mat-checkbox>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>  
+  <!--<button mat-raised-button (click)="upload(myFile.files);" color="primary">Upload</button>-->
+  <button mat-raised-button (click)="save(myFile.files);" color="primary">{{'app.Save' | translate}}</button>
+  <button mat-raised-button (click)="cancel()" color="warn">{{'app.Cancel' | translate}}</button>
+</div>
+

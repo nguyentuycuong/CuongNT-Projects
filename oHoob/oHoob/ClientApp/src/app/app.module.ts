@@ -47,7 +47,6 @@ import { AppComponent } from "./components/app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { CustomersComponent } from "./components/customers/customers.component";
-import { ProductsComponent, DialogOverviewExampleDialog } from "./components/products/products.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
@@ -77,6 +76,10 @@ import { ProductsCategoryEditorComponent } from "./components/products/products-
 import { CategoryServiceEndpoint } from "./services/app/category.endpoint.service";
 import { ProductsCategoryServiceEndpoint } from "./services/app/productsCategory.endpoint.service";
 import { AppUtilities } from "./services/app/app.utilities";
+import { ProductsComponent } from "./components/products/products.component";
+import { ProductService } from "./services/app/product.service";
+import { ProductServiceEndpoint } from "./services/app/product.endpoint.service";
+import { ProductEditorComponent } from "./components/products/products-editor.component";
 
 
 
@@ -130,10 +133,9 @@ import { AppUtilities } from "./services/app/app.utilities";
     BootstrapDatepickerDirective,
     GroupByPipe,
     NavComponent,
-    DialogOverviewExampleDialog,
     LayoutComponent,
     PublicComponent, CategoryComponent, CategoryEditorComponent,
-    ProductsCategoryComponent, ProductsCategoryEditorComponent
+    ProductsCategoryComponent, ProductsCategoryEditorComponent, ProductEditorComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
@@ -152,10 +154,10 @@ import { AppUtilities } from "./services/app/app.utilities";
     CategoryService,
     ProductsCategoryService,
     ProductsCategoryServiceEndpoint,
-    AppUtilities
+    AppUtilities, ProductService, ProductServiceEndpoint,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NavComponent, DialogOverviewExampleDialog]
+  entryComponents: [NavComponent]
 })
 export class AppModule {
 }

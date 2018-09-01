@@ -30,14 +30,19 @@ namespace DAL.Models
         public decimal OldPrice { get; set; }
         public bool IsPromote { get; set; }
         public bool IsHot { get; set; }
+        public string ProductCode { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public int StarRating { get; set; }
+        public string InfoDetail { get; set; }
+        public string Content { get; set; }
 
-        public int? ParentId { get; set; }
-        public Product Parent { get; set; }
+        //public int? ParentId { get; set; }
+        //public Product Parent { get; set; }
 
         public int ProductCategoryId { get; set; }
-        public ProductCategory ProductCategory { get; set; }
+        //public ProductCategory ProductCategory { get; set; }
 
-        public ICollection<Product> Children { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        //public ICollection<Product> Children { get; set; }
+        //public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

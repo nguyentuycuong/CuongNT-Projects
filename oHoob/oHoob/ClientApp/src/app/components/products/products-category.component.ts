@@ -22,7 +22,7 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-products-category',
   templateUrl: './products-category.component.html',
-  styleUrls: ['./products-category.component.css'],
+  styleUrls: ['./products.component.css'],
   animations: [fadeInOut],
 })
 

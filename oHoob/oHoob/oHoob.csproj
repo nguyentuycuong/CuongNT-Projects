@@ -43,6 +43,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\layout\public.component.ts" />
     <None Remove="ClientApp\src\app\models\category.model.ts" />
+    <None Remove="ClientApp\src\app\models\product.model.ts" />
     <None Remove="ClientApp\src\app\services\app\app.utilities.ts" />
     <None Remove="ClientApp\src\app\services\app\category.service.js" />
     <None Remove="ClientApp\src\app\services\app\category.service.js" />
@@ -52,6 +53,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\layout\public.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\product.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\category.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\app\app.utilities.ts" />
   </ItemGroup>

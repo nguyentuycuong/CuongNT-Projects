@@ -8,20 +8,21 @@ import { AppTranslationService } from '../../services/app-translation.service';
 import { AccountService } from '../../services/account.service';
 import { EqualValidator } from '../../directives/equal-validator.directive';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Category } from '../../models/category.model';
 import { AuthService } from '../../services/auth.service';
 import { ProductsCategoryService } from '../../services/app/productsCategory.service';
 import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 //import { RequestOptions } from '@angular/http';
 import { Event } from '@angular/router';
 import { error } from 'protractor';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/app/product.service';
 
 @Component({
-  selector: 'app-products-category-editor',
-  templateUrl: './products-category-editor.component.html',
+  selector: 'app-products-editor',
+  templateUrl: './products-editor.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsCategoryEditorComponent implements OnInit {
+export class ProductEditorComponent implements OnInit {
   progress: number;
   content: CanvasRenderingContext2D;
   @ViewChild("myCanvas") mycanvas;
@@ -30,10 +31,10 @@ export class ProductsCategoryEditorComponent implements OnInit {
   private form: NgForm;
 
   isNewItem = true;
-  private onUserSaved = new Subject<Category>();
+  private onUserSaved = new Subject<Product>();
 
   @Input()
-  item: Category = new Category();
+  item: Product = new Product();
   @Input()
   isEditMode: boolean = false;
 
@@ -49,9 +50,9 @@ export class ProductsCategoryEditorComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private translationService: AppTranslationService,
-    private catService: ProductsCategoryService,
+    private productService: ProductService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<ProductsCategoryEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Category
+    public dialogRef: MatDialogRef<ProductEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Product
   ) {
     if (data.id) {
       this.item = data;
@@ -79,12 +80,11 @@ export class ProductsCategoryEditorComponent implements OnInit {
     });
   }
 
-  private buildEditForm(cat: Category) {
+  private buildEditForm(cat: Product) {
     this.itemForm = this.formBuilder.group({
 
       name: [cat.name, Validators.required],
-      description: cat.description,
-      order: cat.order,
+      description: cat.description,      
       isActive: cat.isActive,
       icon: cat.icon
     });
@@ -111,34 +111,41 @@ export class ProductsCategoryEditorComponent implements OnInit {
     //alert(this.isNewItem)
     if (this.isNewItem) {
 
-      this.catService.newUser(editedUser).subscribe(
+      this.productService.newItem(editedUser).subscribe(
         user => this.saveCompleted(user),
         error => this.saveFailed(error));
     } else {
 
-      this.catService.updateUser(editedUser).subscribe(
+      this.productService.updateItem(editedUser).subscribe(
         response => this.saveCompleted(editedUser),
         error => this.saveFailed(error));
     }
   }
 
-  private getEditedItem(): Category {
+  private getEditedItem(): Product {
     const formModel = this.itemForm.value;
 
     return {
       id: this.item.id,
       name: formModel.name,
-      description: formModel.description,
-      order: formModel.order,
+      description: formModel.description,      
       isActive: (formModel.isActive) ? formModel.isActive : false,
-      appName: 'Product',
-      userId: this.authService.currentUser.id,
-      categoryParent: 0,
+      productCategoryId: 0,
       icon: (this.fileName) ? this.folder + "/" + this.fileName : this.item.icon,
+      buyingPrice: '',
+      sellingPrice: '',
+      oldPrice: '',
+      unitsInStock: 1,
+      isDiscontinued: false,
+      isPromote: false,
+      isHot: false,
+      gallery: '',
+      productCode: '',
+      content: '',
     };
   }
 
-  private saveCompleted(cat?: Category) {
+  private saveCompleted(cat?: Product) {
     if (cat) {
       this.item = cat;
     }

@@ -23,6 +23,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { CategoryEditorComponent } from './components/category/category-editor.component';
 import { ProductsCategoryComponent } from './components/products/products-category.component';
 import { ProductsCategoryEditorComponent } from './components/products/products-category-editor.component';
+import { ProductEditorComponent } from './components/products/products-editor.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: "app/categories/new", component: CategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
       { path: "app/category/products", component: ProductsCategoryComponent, canActivate: [AuthGuard], data: { title: "Category" } },
       { path: "app/category/products/new", component: ProductsCategoryEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
+      { path: "app/product/new", component: ProductEditorComponent, canActivate: [AuthGuard], data: { title: "Category" } },
     ]
   },
 
