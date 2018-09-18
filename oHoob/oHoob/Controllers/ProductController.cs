@@ -91,6 +91,8 @@ namespace oHoob.Controllers
                 return BadRequest(ModelState);
             }
 
+            //product.ReleaseDate = DateTime.Today;
+            product.DateCreated = DateTime.Today;
             _context.Products1.Add(product);
             await _context.SaveChangesAsync();
 

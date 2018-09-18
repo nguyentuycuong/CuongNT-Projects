@@ -41,6 +41,9 @@ import { BootstrapTabDirective } from './directives/bootstrap-tab.directive';
 import { BootstrapToggleDirective } from './directives/bootstrap-toggle.directive';
 import { BootstrapSelectDirective } from './directives/bootstrap-select.directive';
 import { BootstrapDatepickerDirective } from './directives/bootstrap-datepicker.directive';
+
+import { ImagePreview } from './directives/image-preview.directive';
+
 import { GroupByPipe } from './pipes/group-by.pipe';
 
 import { AppComponent } from "./components/app.component";
@@ -80,8 +83,9 @@ import { ProductsComponent } from "./components/products/products.component";
 import { ProductService } from "./services/app/product.service";
 import { ProductServiceEndpoint } from "./services/app/product.endpoint.service";
 import { ProductEditorComponent } from "./components/products/products-editor.component";
-
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { FileUploadModule } from "ng2-file-upload";
 
 
 @NgModule({
@@ -107,7 +111,10 @@ import { ProductEditorComponent } from "./components/products/products-editor.co
     ModalModule.forRoot(),
     ChartsModule,
     LayoutModule,
-    MaterialModule
+    MaterialModule,
+    CKEditorModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    FileUploadModule
   ],
   declarations: [
     AppComponent,
@@ -127,6 +134,7 @@ import { ProductEditorComponent } from "./components/products/products-editor.co
     EqualValidator,
     LastElementDirective,
     AutofocusDirective,
+    ImagePreview,
     BootstrapTabDirective,
     BootstrapToggleDirective,
     BootstrapSelectDirective,
@@ -135,7 +143,8 @@ import { ProductEditorComponent } from "./components/products/products-editor.co
     NavComponent,
     LayoutComponent,
     PublicComponent, CategoryComponent, CategoryEditorComponent,
-    ProductsCategoryComponent, ProductsCategoryEditorComponent, ProductEditorComponent
+    ProductsCategoryComponent, ProductsCategoryEditorComponent, ProductEditorComponent,
+    
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },

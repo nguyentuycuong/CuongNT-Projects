@@ -33,4 +33,5 @@ export class Product {
   public content: string;
   public productCategoryId: number;
   public icon: string;
+  public releaseDate: Date;
 }

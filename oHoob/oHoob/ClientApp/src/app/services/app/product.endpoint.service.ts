@@ -67,7 +67,7 @@ export class ProductServiceEndpoint extends EndpointFactory {
 
   getItemsEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
     let endpointUrl = page && pageSize ? `${this.controllerUrl}/${page}/${pageSize}` : this.controllerUrl;
-    
+    //alert(endpointUrl)
     return this.http.get<T>(endpointUrl, this.getRequestHeaders()).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getItemsEndpoint(page, pageSize));

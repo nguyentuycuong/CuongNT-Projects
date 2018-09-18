@@ -41,6 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\directives\image-preview.directive.ts" />
+    <None Remove="ClientApp\src\app\directives\thumbnail.directive.ts" />
     <None Remove="ClientApp\src\app\layout\public.component.ts" />
     <None Remove="ClientApp\src\app\models\category.model.ts" />
     <None Remove="ClientApp\src\app\models\product.model.ts" />
@@ -49,13 +51,17 @@
     <None Remove="ClientApp\src\app\services\app\category.service.js" />
     <None Remove="ClientApp\src\app\services\app\category.service.js.map" />
     <None Remove="ClientApp\src\app\services\app\category.service.js.map" />
+    <None Remove="ClientApp\src\app\services\app\ClassicEditor.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\directives\image-preview.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\directives\thumbnail.directive.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\layout\public.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\product.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\category.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\app\app.utilities.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\app\ClassicEditor.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -21,20 +21,28 @@
           </div>
           <div fxLayout="row">
             <mat-form-field>
-              <textarea matInput placeholder="{{'product.Description' | translate}}"></textarea>
+              <textarea matInput placeholder="{{'product.Description' | translate}}" formControlName="description"></textarea>
             </mat-form-field>
           </div>
           <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
             <mat-form-field [floatLabel]="floatLabels" fxFlex>
-              <input matInput formControlName="buyingPrice" placeholder="{{'product.BuyingPrice' | translate}}" />
+              <input matInput formControlName="buyingPrice" placeholder="{{'product.BuyingPrice' | translate}}" type="number" />
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabels" fxFlex>
-              <input matInput formControlName="sellingPrice" placeholder="{{'product.SellingPrice' | translate}}" />
+              <input matInput formControlName="sellingPrice" placeholder="{{'product.SellingPrice' | translate}}" type="number" />
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabels" fxFlex>
-              <input matInput formControlName="oldPrice" placeholder="{{'product.OldPrice' | translate}}" />
+              <input matInput formControlName="oldPrice" placeholder="{{'product.OldPrice' | translate}}" type="number" />
             </mat-form-field>
           </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex="32">
+              <input matInput [matDatepicker]="picker" placeholder="Ngày phát hành" formControlName="releaseDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
           <div fxLayout="row">
             <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
               <mat-checkbox formControlName="isDiscontinued">{{'product.Discontinued' | translate}}</mat-checkbox>
@@ -59,16 +67,11 @@
           <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
             <br />
 
-            <br />
             <input #myFile type="file" accept="image/*" (change)="preview($event)" style="display:none" />
-            <br />
-            <br />
-            
             <canvas #myCanvas style="border:1px solid #808080; width:200px; height:200px" (click)="myFile.click()">Icon</canvas>
           </div>
 
           <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
-
 
           </div>
         </div>
@@ -79,7 +82,10 @@
           <mat-icon class="app-tab-icon">filter_2</mat-icon>
           Thông tin chi tiết
         </ng-template>
-        Content 2
+        <div class="tab-content">
+          <ckeditor #editor [editor]="Editor" style="height:200px" [config]="ckeConfig"></ckeditor>
+
+        </div>
       </mat-tab>
 
       <mat-tab>
@@ -87,13 +93,64 @@
           <mat-icon class="app-tab-icon">filter_3</mat-icon>
           Thư viện ảnh
         </ng-template>
+        <div class="tab-content">
+          <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
 
-        Content 3
+          <table class="table" id="tblCustomers">
+            <thead>
+              <tr>
+                <th></th>
+                <th width="50%">Name</th>
+                <th>Size</th>
+                <th>Progress</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of uploader.queue">
+                <td>
+                  <strong>{{ item?.file?.name }}</strong>
+                </td>
+                <td>
+                  <img src="" imgPreview [image]="item?._file" class="media-object" style="width:20%" />
+                <strong>{{ item?.file?.name }}</strong>
+                </td>
+                <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                <td *ngIf="uploader.isHTML5">
+                  <div class="progress" style="margin-bottom: 0;">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                  <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                  <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </td>
+                <td nowrap>
+                  <button type="button" class="btn btn-success btn-xs"
+                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs"
+                          (click)="item.cancel()" [disabled]="!item.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger btn-xs"
+                          (click)="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button (click)="getImageLibrary()">count</button>
+        </div>
       </mat-tab>
     </mat-tab-group>
 
   </form>
-  <div fxLayout="row" class="group-btn" >
+  <div fxLayout="row" class="group-btn">
     <!--<button mat-raised-button (click)="upload(myFile.files);" color="primary">Upload</button>-->
     <button mat-raised-button (click)="save(myFile.files);" color="primary" style="padding-right:5px">{{'app.Save' | translate}}</button><div style="width:5px"></div>
     <button mat-raised-button (click)="cancel()" color="warn">{{'app.Cancel' | translate}}</button>

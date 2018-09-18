@@ -16,6 +16,14 @@ import { Event } from '@angular/router';
 import { error } from 'protractor';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/app/product.service';
+//import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Table from '@ckeditor/ckeditor5-table/src/table';
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { FileUploader } from 'ng2-file-upload';
+import { forEach } from '@angular/router/src/utils/collection';
+
+const URL = '/api/upload/product';
 
 @Component({
   selector: 'app-products-editor',
@@ -23,10 +31,12 @@ import { ProductService } from '../../services/app/product.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductEditorComponent implements OnInit {
+
+
   progress: number;
   content: CanvasRenderingContext2D;
   @ViewChild("myCanvas") mycanvas;
-
+  ckeConfig: any;
   @ViewChild('form')
   private form: NgForm;
 
@@ -44,6 +54,23 @@ export class ProductEditorComponent implements OnInit {
   private isSaving = false;
   fileName: string;
   folder: string = "Icons";
+
+  public Editor = ClassicEditor;
+  
+  //ckeConfig = {
+  //  height: 800,
+  //  language: "en",
+  //  allowedContent: true,
+  //  toolbar: [
+  //    { name: "clipboard", items: ["Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo"] },
+  //    { name: "links", items: ["Link", "Unlink", "Anchor"] },
+  //    { name: "insert", items: ["Image", "Table", "HorizontalRule", "SpecialChar", "Iframe", "imageExplorer"] }
+  //  ]
+  //};
+
+  public uploader: FileUploader = new FileUploader({ url: URL });
+  public hasBaseDropZoneOver: boolean = false;
+  public hasAnotherDropZoneOver: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -63,14 +90,37 @@ export class ProductEditorComponent implements OnInit {
     else {
       this.buildForm();
     }
+
+    //this.Editor.data = "AAAAAAAAAAAAAAAAA";
+  }
+
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  public fileOverAnother(e: any): void {
+    this.hasAnotherDropZoneOver = e;
   }
 
   ngOnInit() {
     this.getImage(this.item.icon, this.mycanvas);
+
+    this.ckeConfig = {
+      toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+      heading: {
+        options: [
+          { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+          { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+          { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+        ],
+      },
+      
+    };
   }
 
   private buildForm() {
     this.itemForm = this.formBuilder.group({
+      productCode: ['', Validators.required],
       name: ['', Validators.required],
       description: '',
       isActive: true,
@@ -83,23 +133,59 @@ export class ProductEditorComponent implements OnInit {
       isDiscontinued: false,
       isPromote: false,
       isHot: false,
-      gallery: '',
-      productCode: '',
+      gallery: '',      
       content: '',
+      releaseDate: null,
     });
   }
 
-  private buildEditForm(cat: Product) {
+  private buildEditForm(product: Product) {
     this.itemForm = this.formBuilder.group({
-
-      name: [cat.name, Validators.required],
-      description: cat.description,      
-      isActive: cat.isActive,
-      icon: cat.icon
+      productCode: [product.productCode, Validators.required],
+      name: [product.name, Validators.required],
+      description: product.description,
+      isActive: product.isActive,
+      productCategoryId: product.productCategoryId,
+      icon: product.icon,
+      buyingPrice: product.buyingPrice,
+      sellingPrice: product.sellingPrice,
+      oldPrice: product.oldPrice,
+      unitsInStock: product.unitsInStock,
+      isDiscontinued: product.isDiscontinued,
+      isPromote: product.isPromote,
+      isHot: product.isHot,
+      gallery: product.gallery,      
+      content: product.content,
+      releaseDate: product.releaseDate,
     });
+  }
+
+  private getEditedItem(): Product {
+    const formModel = this.itemForm.value;
+   
+    return {
+      id: this.item.id,
+      name: formModel.name,
+      description: formModel.description,
+      isActive: (formModel.isActive) ? formModel.isActive : false,
+      productCategoryId: 0,
+      icon: (this.fileName) ? this.folder + "/" + this.fileName : this.item.icon,
+      buyingPrice: formModel.buyingPrice,
+      sellingPrice: formModel.sellingPrice,
+      oldPrice: formModel.oldPrice,
+      unitsInStock: 1,
+      isDiscontinued: (formModel.isDiscontinued) ? formModel.isDiscontinued : false,
+      isPromote: (formModel.isPromote) ? formModel.isPromote : false,
+      isHot: (formModel.isHot) ? formModel.isHot : false,
+      gallery: this.getImageLibrary(),
+      productCode: formModel.productCode,
+      content: this.Editor.data,
+      releaseDate: formModel.releaseDate,
+    };
   }
 
   public save(files) {
+    
     //alert(files.lenght);
     if (!this.form.submitted) {
       // Causes validation to update.
@@ -129,29 +215,6 @@ export class ProductEditorComponent implements OnInit {
         response => this.saveCompleted(editedUser),
         error => this.saveFailed(error));
     }
-  }
-
-  private getEditedItem(): Product {
-    const formModel = this.itemForm.value;
-
-    return {
-      id: this.item.id,
-      name: formModel.name,
-      description: formModel.description,      
-      isActive: (formModel.isActive) ? formModel.isActive : false,
-      productCategoryId: 0,
-      icon: (this.fileName) ? this.folder + "/" + this.fileName : this.item.icon,
-      buyingPrice: '',
-      sellingPrice: '',
-      oldPrice: '',
-      unitsInStock: 1,
-      isDiscontinued: false,
-      isPromote: false,
-      isHot: false,
-      gallery: '',
-      productCode: '',
-      content: '',
-    };
   }
 
   private saveCompleted(cat?: Product) {
@@ -247,5 +310,13 @@ export class ProductEditorComponent implements OnInit {
   private uploadFaile(result) {
     this.alertService.showMessage("Upload fail " + result);
   }
+
+  private getImageLibrary() {      
+    var images = '';    
+    for (let item of this.uploader.queue) {
+      images += item.file.name + ";";  
+    }
+    return images;
+  };
   
 }
