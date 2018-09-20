@@ -1,27 +1,23 @@
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { Subscription, Subject, Observable } from 'rxjs';
-import { User } from '../../models/user.model';
-import { Role } from '../../models/role.model';
+import { Subject } from 'rxjs';
+
 import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { AppTranslationService } from '../../services/app-translation.service';
-import { AccountService } from '../../services/account.service';
-import { EqualValidator } from '../../directives/equal-validator.directive';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthService } from '../../services/auth.service';
-import { ProductsCategoryService } from '../../services/app/productsCategory.service';
-import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
+
+import { HttpRequest, HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 //import { RequestOptions } from '@angular/http';
-import { Event } from '@angular/router';
-import { error } from 'protractor';
+
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/app/product.service';
 //import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { FileUploader } from 'ng2-file-upload';
-import { forEach } from '@angular/router/src/utils/collection';
+import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
 
 const URL = '/api/upload/product';
 
@@ -57,17 +53,6 @@ export class ProductEditorComponent implements OnInit {
 
   public Editor = ClassicEditor;
   
-  //ckeConfig = {
-  //  height: 800,
-  //  language: "en",
-  //  allowedContent: true,
-  //  toolbar: [
-  //    { name: "clipboard", items: ["Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo"] },
-  //    { name: "links", items: ["Link", "Unlink", "Anchor"] },
-  //    { name: "insert", items: ["Image", "Table", "HorizontalRule", "SpecialChar", "Iframe", "imageExplorer"] }
-  //  ]
-  //};
-
   public uploader: FileUploader = new FileUploader({ url: URL });
   public hasBaseDropZoneOver: boolean = false;
   public hasAnotherDropZoneOver: boolean = false;
@@ -85,13 +70,11 @@ export class ProductEditorComponent implements OnInit {
       this.item = data;
       this.isNewItem = false;
       this.buildEditForm(data);
-      
+
     }
     else {
       this.buildForm();
     }
-
-    //this.Editor.data = "AAAAAAAAAAAAAAAAA";
   }
 
   public fileOverBase(e: any): void {
@@ -114,7 +97,7 @@ export class ProductEditorComponent implements OnInit {
           { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
         ],
       },
-      
+
     };
   }
 
@@ -133,7 +116,7 @@ export class ProductEditorComponent implements OnInit {
       isDiscontinued: false,
       isPromote: false,
       isHot: false,
-      gallery: '',      
+      gallery: '',
       content: '',
       releaseDate: null,
     });
@@ -154,15 +137,16 @@ export class ProductEditorComponent implements OnInit {
       isDiscontinued: product.isDiscontinued,
       isPromote: product.isPromote,
       isHot: product.isHot,
-      gallery: product.gallery,      
+      gallery: product.gallery,
       content: product.content,
       releaseDate: product.releaseDate,
     });
+
+    this.getImageLibrary(product.gallery);
   }
 
   private getEditedItem(): Product {
     const formModel = this.itemForm.value;
-   
     return {
       id: this.item.id,
       name: formModel.name,
@@ -177,7 +161,7 @@ export class ProductEditorComponent implements OnInit {
       isDiscontinued: (formModel.isDiscontinued) ? formModel.isDiscontinued : false,
       isPromote: (formModel.isPromote) ? formModel.isPromote : false,
       isHot: (formModel.isHot) ? formModel.isHot : false,
-      gallery: this.getImageLibrary(),
+      gallery: this.getGallery(),
       productCode: formModel.productCode,
       content: this.Editor.data,
       releaseDate: formModel.releaseDate,
@@ -185,7 +169,7 @@ export class ProductEditorComponent implements OnInit {
   }
 
   public save(files) {
-    
+
     //alert(files.lenght);
     if (!this.form.submitted) {
       // Causes validation to update.
@@ -202,7 +186,7 @@ export class ProductEditorComponent implements OnInit {
     this.alertService.startLoadingMessage("Saving changes...");
 
     const editedUser = this.getEditedItem();
-    this.upload(files);
+    
     //alert(this.isNewItem)
     if (this.isNewItem) {
 
@@ -215,6 +199,8 @@ export class ProductEditorComponent implements OnInit {
         response => this.saveCompleted(editedUser),
         error => this.saveFailed(error));
     }
+
+    this.upload(files);
   }
 
   private saveCompleted(cat?: Product) {
@@ -224,9 +210,7 @@ export class ProductEditorComponent implements OnInit {
 
     this.isSaving = false;
     this.alertService.stopLoadingMessage();
-
-    //this.resetForm(true);
-
+    this.uploader.uploadAll();
     this.onUserSaved.next(this.item);
 
     this.dialogRef.close(cat);
@@ -267,7 +251,7 @@ export class ProductEditorComponent implements OnInit {
     let canvas = this.mycanvas.nativeElement;
     let context = canvas.getContext("2d");
     context.clearRect(0, 0, 200, 200);
-   
+
     var render = new FileReader();
     render.onload = function (event: any) {
       var image = new Image();
@@ -284,7 +268,7 @@ export class ProductEditorComponent implements OnInit {
     if (e.target.files.length > 0) {
       render.readAsDataURL(e.target.files[0])
       this.fileName = e.target.files[0].name;
-    }    
+    }
   }
 
   private upload(files) {
@@ -299,24 +283,51 @@ export class ProductEditorComponent implements OnInit {
     const uploadReq = new HttpRequest('POST', '/api/upload/Icons', formData, {
       reportProgress: true,
     });
-    
-    this.http.request(uploadReq).subscribe(event => this.uploadSuccess(event), error => this.uploadFaile(error));
+
+    this.http.request(uploadReq).subscribe(event => this.uploadSuccess(event), error => {
+      //alert(JSON.stringify(error));
+    });
   }
 
   private uploadSuccess(result) {
-    //alert("Upload success " + result[0]);
+    //alert("Upload success " + result);
   }
 
   private uploadFaile(result) {
     this.alertService.showMessage("Upload fail " + result);
   }
 
-  private getImageLibrary() {      
-    var images = '';    
+  private getGallery() {
+    var images = '';
     for (let item of this.uploader.queue) {
-      images += item.file.name + ";";  
+      images += item.file.name + ";";
     }
     return images;
   };
-  
+
+  private getImageLibrary(strImage) {    
+    var images = strImage.split(';');
+    for (let i of images) {
+      if (i) {
+        this.getFile(i);
+      }
+    }
+  }
+
+  private getFile(name) {    
+      this.http.get('/product/' + name, { responseType: 'blob' }).subscribe(response => {
+        let blob = new Blob([response], { type: response.type });
+        var file = new File([blob], name, { type: response.type, lastModified: Date.now() });
+        var fileItem: File[] = [];
+        fileItem.push(file);
+        this.uploader.addToQueue(fileItem);
+
+        for (let item of this.uploader.queue) {
+          item.isSuccess = true;
+          item.isReady = true;
+        }
+      }, error => {
+        console.log(error);
+      });   
+  }
 }

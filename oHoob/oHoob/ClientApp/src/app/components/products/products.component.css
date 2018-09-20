@@ -1,6 +1,6 @@
 /* Structure */
 table {
-  width: 100%;
+  width: 90%;
 }
 
 .mat-form-field {
@@ -43,7 +43,8 @@ table {
 }
 .tab-content
 {
-  padding-top:20px
+  padding-top:20px;
+  height:400px;
 }
 .group-btn
 {

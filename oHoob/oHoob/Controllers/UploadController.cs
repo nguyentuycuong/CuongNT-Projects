@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Net;
 using System.Net.Http.Headers;
 
 namespace oHoob.Controllers
@@ -38,7 +39,7 @@ namespace oHoob.Controllers
                         file.CopyTo(stream);
                     }
                 }
-                return Ok("Upload sucess");
+                return Ok(HttpStatusCode.OK);
             }
             catch (System.Exception ex)
             {

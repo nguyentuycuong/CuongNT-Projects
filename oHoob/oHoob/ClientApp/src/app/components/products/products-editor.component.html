@@ -99,27 +99,21 @@
           <table class="table" id="tblCustomers">
             <thead>
               <tr>
-                <th></th>
                 <th width="50%">Name</th>
-                <th>Size</th>
-                <th>Progress</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th width="10%">Size</th>
+                <th width="10%">Status</th>
+                <th width="30%">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of uploader.queue">
                 <td>
-                  <strong>{{ item?.file?.name }}</strong>
+                  <img src="" imgPreview [image]="item?._file" class="" style="width:100px" /><br />
+                  {{ item?.file?.name }}
                 </td>
-                <td>
-                  <img src="" imgPreview [image]="item?._file" class="media-object" style="width:20%" />
-                <strong>{{ item?.file?.name }}</strong>
-                </td>
-                <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-                <td *ngIf="uploader.isHTML5">
-                  <div class="progress" style="margin-bottom: 0;">
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                <td nowrap>
+                  <div *ngIf="uploader.isHTML5">
+                    {{ item?.file?.size/1024/1024 | number:'.2' }} MB
                   </div>
                 </td>
                 <td class="text-center">
@@ -144,7 +138,6 @@
               </tr>
             </tbody>
           </table>
-          <button (click)="getImageLibrary()">count</button>
         </div>
       </mat-tab>
     </mat-tab-group>
@@ -154,6 +147,7 @@
     <!--<button mat-raised-button (click)="upload(myFile.files);" color="primary">Upload</button>-->
     <button mat-raised-button (click)="save(myFile.files);" color="primary" style="padding-right:5px">{{'app.Save' | translate}}</button><div style="width:5px"></div>
     <button mat-raised-button (click)="cancel()" color="warn">{{'app.Cancel' | translate}}</button>
+    
   </div>
 </div>
 

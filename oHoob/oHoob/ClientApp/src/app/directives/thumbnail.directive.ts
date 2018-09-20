@@ -38,7 +38,7 @@ export class ThumbnailDirective {
         canvas.getContext('2d').drawImage(image, 0, 0, width, height);
         el.nativeElement.src = canvas.toDataURL('image/jpeg');
       };
-      image.src = reader.result;
+      // image.src = reader.result;
     };
 
     if (this.image) {

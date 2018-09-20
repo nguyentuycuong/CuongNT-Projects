@@ -23,12 +23,7 @@ export class AppUtilities
     for (var _i: number = 0; _i < rows.length; _i++) {
       //images += rows[_i].cells[0].innerText + ";";      
     }
-
-    for (let item of this.uploader.queue) {
-      images += item.file.name + ";";
-    }
-
-    alert(images);
+       
     return images;
   };
 }
