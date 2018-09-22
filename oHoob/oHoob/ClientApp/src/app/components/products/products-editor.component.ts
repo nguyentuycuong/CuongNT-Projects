@@ -86,6 +86,7 @@ export class ProductEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.getImage(this.item.icon, this.mycanvas);
 
     this.ckeConfig = {
@@ -163,7 +164,7 @@ export class ProductEditorComponent implements OnInit {
       isHot: (formModel.isHot) ? formModel.isHot : false,
       gallery: this.getGallery(),
       productCode: formModel.productCode,
-      content: this.Editor.data,
+      content: formModel.content,
       releaseDate: formModel.releaseDate,
     };
   }

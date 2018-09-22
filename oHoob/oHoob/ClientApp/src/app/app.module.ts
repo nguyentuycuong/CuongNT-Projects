@@ -86,12 +86,14 @@ import { ProductEditorComponent } from "./components/products/products-editor.co
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { FileUploadModule } from "ng2-file-upload";
+import { JoditAngularModule } from "./jodit-angular/public_api";
 
 
 @NgModule({
   imports: [
     FlexLayoutModule,
     BrowserModule,
+    JoditAngularModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule, ReactiveFormsModule,

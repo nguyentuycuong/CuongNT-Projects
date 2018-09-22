@@ -83,8 +83,8 @@
           Thông tin chi tiết
         </ng-template>
         <div class="tab-content">
-          <ckeditor #editor [editor]="Editor" style="height:200px" [config]="ckeConfig"></ckeditor>
-
+          <!--<ckeditor #editor [editor]="Editor" style="height:200px" [config]="ckeConfig"></ckeditor>-->
+          <jodit-editor formControlName="content" [config]="{uploader: {'insertImageAsBase64URI':true}, spellcheck: false, showCharsCounter: false, showWordsCounter: false, showXPathInStatusbar:false, disablePlugins: 'autofocus,cleanHTML,iframe,hotkeys,symbols,tableKeyboardNavigation,search,stat,xpath,pasteStorage', buttons:',,,,,,,ul,ol,,|,font,fontsize,brush,paragraph,,image,video,table,link,,align,\n,hr,|,fullsize'}"></jodit-editor>
         </div>
       </mat-tab>
 
@@ -150,5 +150,6 @@
     
   </div>
 </div>
+
 
 
