@@ -19,6 +19,15 @@
               <input matInput formControlName="name" />
             </mat-form-field>
           </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field>
+              <mat-select placeholder="{{'product.Catogory' | translate}}" formControlName="productCategoryId">
+                <mat-option [value]="">--Chọn danh mục sản phẩm--</mat-option>
+                <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</mat-option>
+              </mat-select>
+              
+            </mat-form-field>
+          </div>
           <div fxLayout="row">
             <mat-form-field>
               <textarea matInput placeholder="{{'product.Description' | translate}}" formControlName="description"></textarea>

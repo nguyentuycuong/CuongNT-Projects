@@ -9,6 +9,11 @@
 <div class="col-sm-4" style="vertical-align:bottom; padding-top:10px">
   <button color="primary" mat-button class="mat-button mat-primary" (click)="editItemClick()">
     <span class="mat-button-wrapper">
+      <mat-icon class="mat-button-icon mat-icon material-icons" role="img" aria-hidden="true">menu</mat-icon>Thao tác
+    </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
+  </button>
+  <button color="primary" mat-button class="mat-button mat-primary" (click)="editItemClick()">
+    <span class="mat-button-wrapper">
       <mat-icon class="mat-button-icon mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>{{'app.AddNew' | translate}}
     </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
   </button>
@@ -19,6 +24,22 @@
   </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef fxFlex="5%">
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5%">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(element) : null"
+                      [checked]="selection.isSelected(element)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef fxFlex="50%"> {{'product.Name' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.name}} </mat-cell>
@@ -28,7 +49,7 @@
       <mat-header-cell *matHeaderCellDef fxFlex="20%"> {{'product.Description' | translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.description}} </mat-cell>
     </ng-container>
-      
+
     <!-- Symbol Column -->
     <ng-container matColumnDef="active">
       <mat-header-cell *matHeaderCellDef fxFlex="10%"> {{'product.Active' | translate}} </mat-header-cell>

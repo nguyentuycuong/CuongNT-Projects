@@ -624,7 +624,7 @@
 			log     : function (message, type, wait) { _alertify.log(message, type, wait); return this; },
 			prompt  : function (message, fn, placeholder, cssClass) { _alertify.dialog(message, "prompt", fn, placeholder, cssClass); return this; },
 			success : function (message, wait) { _alertify.log(message, "success", wait); return this; },
-			error   : function (message, wait) { _alertify.log(message, "error", wait); return this; },
+			error   : function (message, wait) { _alertify.log(message, "error1", wait); return this; },
 			set     : function (args) { _alertify.set(args); },
 			labels  : _alertify.labels,
 			debug   : _alertify.handleErrors

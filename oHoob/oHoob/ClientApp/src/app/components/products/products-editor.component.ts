@@ -18,6 +18,9 @@ import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
+import { Category } from '../../models/category.model';
+import { CategoryService } from '../../services/app/category.service';
+import { ProductsCategoryService } from '../../services/app/productsCategory.service';
 
 const URL = '/api/upload/product';
 
@@ -27,7 +30,7 @@ const URL = '/api/upload/product';
   styleUrls: ['./products.component.css']
 })
 export class ProductEditorComponent implements OnInit {
-
+  animalControl = new FormControl('', [Validators.required]);
 
   progress: number;
   content: CanvasRenderingContext2D;
@@ -57,23 +60,26 @@ export class ProductEditorComponent implements OnInit {
   public hasBaseDropZoneOver: boolean = false;
   public hasAnotherDropZoneOver: boolean = false;
 
+  categories: Category[];
+
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private alertService: AlertService,
     private translationService: AppTranslationService,
     private productService: ProductService,
+    private catService: ProductsCategoryService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ProductEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Product
   ) {
     if (data.id) {
       this.item = data;
       this.isNewItem = false;
-      this.buildEditForm(data);
+      this.editForm(data);
 
     }
     else {
-      this.buildForm();
+      this.newForm();
     }
   }
 
@@ -86,7 +92,8 @@ export class ProductEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.catService.getItems().subscribe(d => this.categories= d);
+
     this.getImage(this.item.icon, this.mycanvas);
 
     this.ckeConfig = {
@@ -102,13 +109,13 @@ export class ProductEditorComponent implements OnInit {
     };
   }
 
-  private buildForm() {
+  private newForm() {
     this.itemForm = this.formBuilder.group({
       productCode: ['', Validators.required],
       name: ['', Validators.required],
       description: '',
       isActive: true,
-      productCategoryId: 0,
+      productCategoryId: ['', Validators.required],
       icon: '',
       buyingPrice: '',
       sellingPrice: '',
@@ -123,13 +130,13 @@ export class ProductEditorComponent implements OnInit {
     });
   }
 
-  private buildEditForm(product: Product) {
+  private editForm(product: Product) {
     this.itemForm = this.formBuilder.group({
       productCode: [product.productCode, Validators.required],
       name: [product.name, Validators.required],
       description: product.description,
       isActive: product.isActive,
-      productCategoryId: product.productCategoryId,
+      productCategoryId: [product.productCategoryId, Validators.required],
       icon: product.icon,
       buyingPrice: product.buyingPrice,
       sellingPrice: product.sellingPrice,
@@ -146,14 +153,14 @@ export class ProductEditorComponent implements OnInit {
     this.getImageLibrary(product.gallery);
   }
 
-  private getEditedItem(): Product {
+  private getCurentItem(): Product {
     const formModel = this.itemForm.value;
     return {
       id: this.item.id,
       name: formModel.name,
       description: formModel.description,
       isActive: (formModel.isActive) ? formModel.isActive : false,
-      productCategoryId: 0,
+      productCategoryId: formModel.productCategoryId,
       icon: (this.fileName) ? this.folder + "/" + this.fileName : this.item.icon,
       buyingPrice: formModel.buyingPrice,
       sellingPrice: formModel.sellingPrice,
@@ -186,7 +193,7 @@ export class ProductEditorComponent implements OnInit {
     this.isSaving = true;
     this.alertService.startLoadingMessage("Saving changes...");
 
-    const editedUser = this.getEditedItem();
+    const editedUser = this.getCurentItem();
     
     //alert(this.isNewItem)
     if (this.isNewItem) {

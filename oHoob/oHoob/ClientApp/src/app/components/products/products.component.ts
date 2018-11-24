@@ -11,7 +11,8 @@ import { map } from 'rxjs/operators';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/app/product.service';
 import { ProductEditorComponent } from './products-editor.component';
-
+import { SelectionModel } from '@angular/cdk/collections';
+import { PeriodicElement } from '../category/category.component';
 
 @Component({
     selector: 'products',
@@ -30,8 +31,9 @@ export class ProductsComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'description', 'active', 'image', 'action'];
+  displayedColumns: string[] = ['select','name', 'description', 'active', 'image', 'action'];
   dataSource: MatTableDataSource<Product>;
+  selection = new SelectionModel<PeriodicElement>(true, []);
 
 
   constructor(private breakpointObserver: BreakpointObserver, private productService: ProductService, private snackBar: MatSnackBar, private alertService: AlertService, private dialog: MatDialog) {
@@ -139,5 +141,18 @@ export class ProductsComponent {
                 error);
             })
       });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }

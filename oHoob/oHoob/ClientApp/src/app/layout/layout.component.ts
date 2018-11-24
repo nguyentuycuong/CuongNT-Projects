@@ -297,6 +297,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
 
     if (isSticky) {
+      //alert(1);
       toastOptions.onAdd = (toast: ToastData) => this.stickyToasties.push(toast.id);
 
       toastOptions.onRemove = (toast: ToastData) => {
